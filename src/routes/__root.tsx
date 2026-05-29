@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ارس‌ترید | پلتفرم واردات هوشمند منطقه آزاد ارس" },
-      { name: "description", content: "اولین پلتفرم پریمیوم واردات کالا، خودرو و ترخیص گمرکی از منطقه آزاد ارس." },
-      { name: "author", content: "ArasTrade" },
-      { property: "og:title", content: "ارس‌ترید | واردات هوشمند بدون واسطه" },
-      { property: "og:description", content: "واردات مستقیم خودرو و کالای پریمیوم از طریق منطقه آزاد ارس." },
+      { title: "خرید بی‌واسطه کالاهای وارداتی با ارس‌ترید" },
+      { name: "description", content: "اولین پلتفرم واردات کالا، خودرو و ترخیص گمرکی از منطقه آزاد ارس." },
+      { name: "author", content: "ArassTrade" },
+      { property: "og:title", content: "خرید بی‌واسطه کالاهای وارداتی با ارس‌ترید" },
+      { property: "og:description", content: "اولین پلتفرم واردات کالا، خودرو و ترخیص گمرکی از منطقه آزاد ارس." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "خرید بی‌واسطه کالاهای وارداتی با ارس‌ترید" },
+      { name: "twitter:description", content: "اولین پلتفرم واردات کالا، خودرو و ترخیص گمرکی از منطقه آزاد ارس." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6be81356-2d75-465e-87ba-13bd8f5cb761/id-preview-9a20d800--f448461f-9901-4e03-8ec9-d29bce64979f.lovable.app-1780029009756.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6be81356-2d75-465e-87ba-13bd8f5cb761/id-preview-9a20d800--f448461f-9901-4e03-8ec9-d29bce64979f.lovable.app-1780029009756.png" },
     ],
     links: [
       {
