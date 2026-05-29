@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          car_model: string
+          car_year: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          origin: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          car_model: string
+          car_year?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          origin?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          car_model?: string
+          car_year?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          origin?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          phone: string
+          terms_accepted: boolean
+          terms_accepted_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          id: string
+          phone: string
+          terms_accepted?: boolean
+          terms_accepted_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          terms_accepted?: boolean
+          terms_accepted_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
