@@ -72,10 +72,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "آراس‌ترید | پلتفرم واردات هوشمند منطقه آزاد ارس" },
+      { title: "ارس‌ترید | پلتفرم واردات هوشمند منطقه آزاد ارس" },
       { name: "description", content: "اولین پلتفرم پریمیوم واردات کالا، خودرو و ترخیص گمرکی از منطقه آزاد ارس." },
-      { name: "author", content: "ArassTrade" },
-      { property: "og:title", content: "آراس‌ترید | واردات هوشمند بدون واسطه" },
+      { name: "author", content: "ArasTrade" },
+      { property: "og:title", content: "ارس‌ترید | واردات هوشمند بدون واسطه" },
       { property: "og:description", content: "واردات مستقیم خودرو و کالای پریمیوم از طریق منطقه آزاد ارس." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

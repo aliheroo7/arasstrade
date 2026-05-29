@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import landCruiser from "@/assets/car-landcruiser.jpg";
 import lexus from "@/assets/car-lexus.jpg";
 import rangeRover from "@/assets/car-rangerover.jpg";
@@ -7,7 +7,6 @@ import gclass from "@/assets/car-gclass.jpg";
 import bmwx7 from "@/assets/car-bmwx7.jpg";
 import heroImport from "@/assets/hero-import.jpg";
 import {
-  Menu,
   ArrowLeft,
   Phone,
   MapPin,
@@ -28,9 +27,9 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "آراس‌ترید | واردات هوشمند خودرو و کالای پریمیوم" },
+      { title: "ارس‌ترید | واردات هوشمند خودرو و کالای پریمیوم" },
       { name: "description", content: "پلتفرم پریمیوم واردات خودروهای لوکس و کالاهای جهانی از طریق منطقه آزاد ارس. ترخیص گمرکی، تامین و تحویل سراسری." },
-      { property: "og:title", content: "آراس‌ترید | واردات هوشمند بدون واسطه" },
+      { property: "og:title", content: "ارس‌ترید | واردات هوشمند بدون واسطه" },
       { property: "og:description", content: "واردات مستقیم خودرو و کالای پریمیوم از طریق منطقه آزاد ارس." },
     ],
   }),
@@ -69,7 +68,7 @@ const stats = [
 
 const testimonials = [
   { name: "دکتر علیرضا کریمی", role: "مدیرعامل گروه صنعتی", text: "شفافیت در قیمت‌گذاری و سرعت ترخیص واقعاً متفاوت بود. لندکروزر من دقیقاً سر زمان وعده داده شده تحویل شد." },
-  { name: "مهندس سارا موسوی", role: "خریدار خصوصی", text: "تجربه‌ای کاملاً متفاوت از خرید یک کاین. تیم آراس‌ترید از انتخاب تا تحویل کنارم بودند." },
+  { name: "مهندس سارا موسوی", role: "خریدار خصوصی", text: "تجربه‌ای کاملاً متفاوت از خرید یک کاین. تیم ارس‌ترید از انتخاب تا تحویل کنارم بودند." },
 ];
 
 function Index() {
@@ -101,10 +100,15 @@ function Navbar() {
         <a href="#services" className="hover:text-foreground transition">خدمات</a>
         <a href="#contact" className="hover:text-foreground transition">تماس</a>
       </div>
-      <button aria-label="منو" className="size-10 rounded-full bg-surface grid place-items-center border border-border md:hidden">
-        <Menu className="size-4" />
-      </button>
-      <a href="#contact" className="hidden md:inline-flex h-10 items-center px-5 rounded-full bg-premium-black text-primary-foreground text-sm font-semibold">ثبت سفارش</a>
+      <div className="flex items-center gap-2">
+        <Link to="/auth" className="hidden md:inline-flex h-10 items-center px-4 rounded-full border border-border text-sm font-semibold">
+          ورود / ثبت‌نام
+        </Link>
+        <Link to="/auth" aria-label="حساب کاربری" className="size-10 rounded-full bg-surface grid place-items-center border border-border md:hidden">
+          <User className="size-4" />
+        </Link>
+        <a href="#contact" className="hidden md:inline-flex h-10 items-center px-5 rounded-full bg-premium-black text-primary-foreground text-sm font-semibold">ثبت سفارش</a>
+      </div>
     </nav>
   );
 }
@@ -269,7 +273,7 @@ function Services() {
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">
             خدمات کارگزاری
             <br />
-            آراس‌ترید
+            ارس‌ترید
           </h2>
           <p className="text-white/60 text-sm mb-10 leading-relaxed max-w-md">
             صفر تا صد واردات — از خرید در بازارهای جهانی تا تحویل درب منزل شما.
@@ -304,7 +308,7 @@ function Services() {
 function Trust() {
   return (
     <section className="px-6 py-12">
-      <h2 className="text-3xl font-extrabold tracking-tight mb-2">چرا آراس‌ترید؟</h2>
+      <h2 className="text-3xl font-extrabold tracking-tight mb-2">چرا ارس‌ترید؟</h2>
       <p className="text-muted-foreground text-sm mb-8">اعتماد بیش از هزار مشتری حرفه‌ای در سراسر کشور.</p>
 
       <div className="space-y-4">
@@ -333,14 +337,14 @@ function Trust() {
 function Contact() {
   const channels = [
     { label: "واتس‌اپ", value: "پیام مستقیم", icon: MessageCircle, href: "https://wa.me/989000000000" },
-    { label: "تلگرام", value: "@arasstrade", icon: Send, href: "https://t.me/arasstrade" },
-    { label: "اینستاگرام", value: "@arasstrade", icon: Instagram, href: "https://instagram.com/arasstrade" },
+    { label: "تلگرام", value: "@arastrade", icon: Send, href: "https://t.me/arastrade" },
+    { label: "اینستاگرام", value: "@arastrade", icon: Instagram, href: "https://instagram.com/arastrade" },
     { label: "تماس مستقیم", value: "۰۲۱-۸۸۸۸۷۷۷۷", icon: Phone, href: "tel:+982188887777" },
   ];
   return (
     <section id="contact" className="px-6 py-12">
       <h2 className="text-3xl font-extrabold tracking-tight mb-2">تماس با ما</h2>
-      <p className="text-muted-foreground text-sm mb-8">تیم پشتیبانی آراس‌ترید پاسخگوی شماست.</p>
+      <p className="text-muted-foreground text-sm mb-8">تیم پشتیبانی ارس‌ترید پاسخگوی شماست.</p>
 
       <div className="grid grid-cols-2 gap-3 mb-6">
         {channels.map((c) => (
@@ -356,7 +360,7 @@ function Contact() {
         <MapPin className="size-5 text-brand-gold shrink-0 mt-0.5" />
         <div>
           <div className="font-bold text-sm mb-1">دفتر مرکزی</div>
-          <div className="text-xs text-muted-foreground leading-relaxed">منطقه آزاد ارس، جلفا، فاز یک، مجتمع تجاری آراس‌ترید</div>
+          <div className="text-xs text-muted-foreground leading-relaxed">منطقه آزاد ارس، جلفا، فاز یک، مجتمع تجاری ارس‌ترید</div>
         </div>
       </div>
     </section>
@@ -373,7 +377,7 @@ function Footer() {
         <div className="text-[10px] text-muted-foreground tracking-widest">© ۱۴۰۳</div>
       </div>
       <p className="text-xs text-muted-foreground leading-relaxed max-w-md">
-        تمامی حقوق مادی و معنوی این وب‌سایت متعلق به مجموعه آراس‌ترید است.
+        تمامی حقوق مادی و معنوی این وب‌سایت متعلق به مجموعه ارس‌ترید است.
       </p>
     </footer>
   );
@@ -394,9 +398,9 @@ function BottomNav() {
       <a href="#preorder" className="size-10 grid place-items-center text-white/60">
         <Heart className="size-5" />
       </a>
-      <a href="#" className="size-10 grid place-items-center text-white/60">
+      <Link to="/auth" className="size-10 grid place-items-center text-white/60">
         <User className="size-5" />
-      </a>
+      </Link>
     </div>
   );
 }
