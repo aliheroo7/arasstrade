@@ -399,9 +399,9 @@ function BottomNav() {
       <a href="#preorder" className="size-10 grid place-items-center text-white/60">
         <Heart className="size-5" />
       </a>
-      <a href="#" className="size-10 grid place-items-center text-white/60">
+      <Link to="/auth" className="size-10 grid place-items-center text-white/60">
         <User className="size-5" />
-      </a>
+      </Link>
     </div>
   );
 }
