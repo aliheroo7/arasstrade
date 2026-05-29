@@ -7,7 +7,6 @@ import gclass from "@/assets/car-gclass.jpg";
 import bmwx7 from "@/assets/car-bmwx7.jpg";
 import heroImport from "@/assets/hero-import.jpg";
 import {
-  Menu,
   ArrowLeft,
   Phone,
   MapPin,
