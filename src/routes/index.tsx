@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import landCruiser from "@/assets/car-landcruiser.jpg";
 import lexus from "@/assets/car-lexus.jpg";
 import rangeRover from "@/assets/car-rangerover.jpg";
@@ -101,10 +101,15 @@ function Navbar() {
         <a href="#services" className="hover:text-foreground transition">خدمات</a>
         <a href="#contact" className="hover:text-foreground transition">تماس</a>
       </div>
-      <button aria-label="منو" className="size-10 rounded-full bg-surface grid place-items-center border border-border md:hidden">
-        <Menu className="size-4" />
-      </button>
-      <a href="#contact" className="hidden md:inline-flex h-10 items-center px-5 rounded-full bg-premium-black text-primary-foreground text-sm font-semibold">ثبت سفارش</a>
+      <div className="flex items-center gap-2">
+        <Link to="/auth" className="hidden md:inline-flex h-10 items-center px-4 rounded-full border border-border text-sm font-semibold">
+          ورود / ثبت‌نام
+        </Link>
+        <Link to="/auth" aria-label="حساب کاربری" className="size-10 rounded-full bg-surface grid place-items-center border border-border md:hidden">
+          <User className="size-4" />
+        </Link>
+        <a href="#contact" className="hidden md:inline-flex h-10 items-center px-5 rounded-full bg-premium-black text-primary-foreground text-sm font-semibold">ثبت سفارش</a>
+      </div>
     </nav>
   );
 }
