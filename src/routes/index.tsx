@@ -52,7 +52,7 @@ import {
   CheckCircle2,
   Activity,
   Anchor,
-  ContainerIcon,
+  Container,
   Sparkles,
 } from "lucide-react";
 
@@ -99,7 +99,7 @@ const services = [
     bullets: ["انتخاب از مبدأ", "حمل بیمه‌شده", "بازرسی فنی پیش از خرید"],
   },
   {
-    icon: ContainerIcon,
+    icon: Container,
     title: "واردات و ترخیص کالا",
     desc: "واردات کالای تجاری، صنعتی و لوکس و ترخیص آن از گمرک ارس و سایر گمرکات کشور.",
     bullets: ["ثبت سفارش", "ترانزیت بین‌المللی", "ترخیص قطعی"],
@@ -502,6 +502,7 @@ function WhyUs() {
 
 function InquiryForm() {
   const [loading, setLoading] = useState(false);
+  const [reqType, setReqType] = useState("");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -509,7 +510,7 @@ function InquiryForm() {
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
-    const type = String(data.get("type") || "").trim();
+    const type = reqType;
 
     if (!name || !phone || !type) {
       toast.error("لطفاً نام، شماره تماس و نوع درخواست را تکمیل کنید");
@@ -525,6 +526,7 @@ function InquiryForm() {
     setTimeout(() => {
       toast.success("درخواست شما با موفقیت ثبت شد. به‌زودی تماس می‌گیریم.");
       form.reset();
+      setReqType("");
       setLoading(false);
     }, 700);
   };
@@ -570,7 +572,7 @@ function InquiryForm() {
 
           <div>
             <label className="block text-xs font-bold mb-2">نوع درخواست</label>
-            <Select name="type" dir="rtl">
+            <Select value={reqType} onValueChange={setReqType} dir="rtl">
               <SelectTrigger className="bg-background h-12 rounded-2xl w-full">
                 <SelectValue placeholder="انتخاب خدمت موردنظر" />
               </SelectTrigger>
@@ -581,8 +583,6 @@ function InquiryForm() {
                 <SelectItem value="consult">مشاوره عمومی</SelectItem>
               </SelectContent>
             </Select>
-            {/* hidden field to capture select value through native FormData */}
-            <input type="hidden" name="type" />
           </div>
 
           <div>
