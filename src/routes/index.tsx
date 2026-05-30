@@ -1,4 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import landCruiser from "@/assets/car-landcruiser.jpg";
 import lexus from "@/assets/car-lexus.jpg";
 import rangeRover from "@/assets/car-rangerover.jpg";
@@ -6,6 +9,22 @@ import cayenne from "@/assets/car-cayenne.jpg";
 import gclass from "@/assets/car-gclass.jpg";
 import bmwx7 from "@/assets/car-bmwx7.jpg";
 import heroImport from "@/assets/hero-import.jpg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   ArrowLeft,
   Phone,
@@ -17,71 +36,170 @@ import {
   Truck,
   Package,
   FileCheck,
-  Sparkles,
   Home,
   Search,
   Heart,
   User,
+  Award,
+  Globe2,
+  Headphones,
+  Eye,
+  Car,
+  FileSignature,
+  ClipboardList,
+  PhoneCall,
+  Calculator,
+  CheckCircle2,
+  Activity,
+  Anchor,
+  ContainerIcon,
+  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ارس‌ترید | واردات هوشمند خودرو و کالای پریمیوم" },
-      { name: "description", content: "پلتفرم پریمیوم واردات خودروهای لوکس و کالاهای جهانی از طریق منطقه آزاد ارس. ترخیص گمرکی، تامین و تحویل سراسری." },
-      { property: "og:title", content: "ارس‌ترید | واردات هوشمند بدون واسطه" },
-      { property: "og:description", content: "واردات مستقیم خودرو و کالای پریمیوم از طریق منطقه آزاد ارس." },
+      { title: "ارس‌ترید | واردات و ترخیص تخصصی خودرو از منطقه آزاد ارس" },
+      {
+        name: "description",
+        content:
+          "ارس‌ترید، متخصص واردات و ترخیص خودرو، واردات کالای تجاری و تأمین بین‌المللی از منطقه آزاد ارس. مشاوره رایگان، فرآیند شفاف و پشتیبانی تخصصی.",
+      },
+      { property: "og:title", content: "ارس‌ترید | واردات و ترخیص تخصصی خودرو" },
+      {
+        property: "og:description",
+        content:
+          "واردات و ترخیص خودرو و کالای تجاری از منطقه آزاد ارس با تیم تخصصی و فرآیند شفاف.",
+      },
     ],
   }),
   component: Index,
 });
 
-const cars = [
-  { name: "تویوتا لندکروزر VXR", year: "۲۰۲۰", price: "۲۸,۵۰۰,۰۰۰,۰۰۰", origin: "امارات 🇦🇪", eta: "تحویل ۱۴ روزه", badge: "موجود در انبار", badgeTone: "green", img: landCruiser },
-  { name: "لکسوس LX 570", year: "۲۰۱۹", price: "۲۴,۹۰۰,۰۰۰,۰۰۰", origin: "ژاپن 🇯🇵", eta: "تحویل ۱۸ روزه", badge: "در حال حمل", badgeTone: "gold", img: lexus },
-  { name: "رنج‌روور وگ Autobiography", year: "۲۰۱۸", price: "۲۲,۳۰۰,۰۰۰,۰۰۰", origin: "انگلستان 🇬🇧", eta: "تحویل ۲۰ روزه", badge: "پیش‌فروش", badgeTone: "blue", img: rangeRover },
-  { name: "پورشه کاین توربو", year: "۲۰۱۷", price: "۱۸,۷۰۰,۰۰۰,۰۰۰", origin: "آلمان 🇩🇪", eta: "تحویل ۱۶ روزه", badge: "موجود", badgeTone: "green", img: cayenne },
-  { name: "مرسدس بنز G500", year: "۲۰۲۱", price: "۴۵,۰۰۰,۰۰۰,۰۰۰", origin: "آلمان 🇩🇪", eta: "تحویل ۲۱ روزه", badge: "پیش‌سفارش", badgeTone: "gold", img: gclass },
-  { name: "BMW X7 xDrive40i", year: "۲۰۲۰", price: "۲۶,۸۰۰,۰۰۰,۰۰۰", origin: "آلمان 🇩🇪", eta: "تحویل ۱۵ روزه", badge: "موجود", badgeTone: "green", img: bmwx7 },
-  { name: "لندکروزر کلاسیک", year: "۲۰۱۰", price: "۱۰,۴۰۰,۰۰۰,۰۰۰", origin: "امارات 🇦🇪", eta: "تحویل ۱۲ روزه", badge: "تک‌موجودی", badgeTone: "blue", img: landCruiser },
+// ---------- DATA (CMS-ready) ----------
+
+const trustItems = [
+  { icon: Award, title: "بیش از ۵ سال تجربه", desc: "سابقه‌ای موفق در واردات و ترخیص" },
+  { icon: Eye, title: "فرآیند شفاف", desc: "گزارش لحظه‌ای از تمام مراحل" },
+  { icon: Globe2, title: "شبکه تأمین بین‌المللی", desc: "همکاران معتبر در امارات، آلمان، ژاپن" },
+  { icon: Headphones, title: "پشتیبانی تخصصی", desc: "تیم حقوقی و گمرکی پاسخگو" },
 ];
 
-const badgeStyles: Record<string, string> = {
-  green: "bg-emerald-500/10 text-emerald-600",
-  gold: "bg-brand-gold/10 text-brand-gold",
-  blue: "bg-brand-blue/10 text-brand-blue",
+const services = [
+  {
+    icon: ShieldCheck,
+    title: "ترخیص خودرو",
+    desc: "انجام تمام مراحل قانونی ترخیص خودرو از گمرک منطقه آزاد ارس با کوتاه‌ترین زمان.",
+    bullets: ["مدارک کامل گمرکی", "پلاک‌گذاری", "بیمه و انتقال سند"],
+  },
+  {
+    icon: Car,
+    title: "واردات خودرو",
+    desc: "تأمین مستقیم خودروهای لوکس و پرتقاضا از بازارهای جهانی بدون واسطه.",
+    bullets: ["انتخاب از مبدأ", "حمل بیمه‌شده", "بازرسی فنی پیش از خرید"],
+  },
+  {
+    icon: ContainerIcon,
+    title: "واردات و ترخیص کالا",
+    desc: "واردات کالای تجاری، صنعتی و لوکس و ترخیص آن از گمرک ارس و سایر گمرکات کشور.",
+    bullets: ["ثبت سفارش", "ترانزیت بین‌المللی", "ترخیص قطعی"],
+  },
+];
+
+const vehicleGroups = {
+  ready: [
+    { name: "تویوتا لندکروزر VXR", year: "۲۰۲۰", origin: "امارات", img: landCruiser, badge: "آماده تحویل" },
+    { name: "پورشه کاین توربو", year: "۲۰۱۹", origin: "آلمان", img: cayenne, badge: "آماده تحویل" },
+    { name: "BMW X7 xDrive40i", year: "۲۰۲۱", origin: "آلمان", img: bmwx7, badge: "آماده تحویل" },
+  ],
+  shipping: [
+    { name: "لکسوس LX 570", year: "۲۰۲۰", origin: "ژاپن", img: lexus, badge: "در حال حمل" },
+    { name: "رنج‌روور وگ", year: "۲۰۱۹", origin: "انگلستان", img: rangeRover, badge: "در حال حمل" },
+    { name: "مرسدس بنز G500", year: "۲۰۲۲", origin: "آلمان", img: gclass, badge: "در راه" },
+  ],
+  preorder: [
+    { name: "لکسوس RX 500h", year: "۲۰۲۴", origin: "ژاپن", img: lexus, badge: "پیش‌فروش" },
+    { name: "لندکروزر ۳۰۰", year: "۲۰۲۴", origin: "امارات", img: landCruiser, badge: "پیش‌فروش" },
+    { name: "مرسدس بنز GLE", year: "۲۰۲۴", origin: "آلمان", img: rangeRover, badge: "پیش‌فروش" },
+  ],
 };
 
-const steps = [
-  { n: "۰۱", title: "ثبت درخواست", desc: "ارسال مدل و سال خودروی موردنظر یا لینک کالا", icon: FileCheck },
-  { n: "۰۲", title: "تامین و خرید بین‌المللی", desc: "خرید مستقیم از بازارهای جهانی توسط تیم ما", icon: Package },
-  { n: "۰۳", title: "ترخیص گمرکی ارس", desc: "انجام تمامی امور قانونی در گمرک منطقه آزاد ارس", icon: ShieldCheck },
-  { n: "۰۴", title: "تحویل سراسری", desc: "ارسال ایمن و بیمه‌شده به درب منزل شما", icon: Truck },
+const processSteps = [
+  { n: "۰۱", title: "ثبت درخواست", desc: "تکمیل فرم یا تماس", icon: ClipboardList },
+  { n: "۰۲", title: "مشاوره تخصصی", desc: "بررسی نیاز و گزینه‌ها", icon: PhoneCall },
+  { n: "۰۳", title: "استعلام هزینه", desc: "پیشنهاد قیمت شفاف", icon: Calculator },
+  { n: "۰۴", title: "عقد قرارداد", desc: "ثبت رسمی توافق", icon: FileSignature },
+  { n: "۰۵", title: "واردات و ترخیص", desc: "اجرای کامل فرآیند", icon: Anchor },
+  { n: "۰۶", title: "تحویل", desc: "تحویل ایمن و بیمه‌شده", icon: Truck },
 ];
 
-const stats = [
-  { value: "+۵۰۰", label: "خودرو ترخیص شده" },
-  { value: "+۱۲۰۰", label: "سفارش موفق" },
-  { value: "۹۸٪", label: "رضایت مشتریان" },
-  { value: "۴۸ ساعت", label: "میانگین ترخیص" },
+const activities = [
+  { icon: CheckCircle2, tone: "green", text: "ترخیص یک دستگاه لندکروزر VXR از گمرک ارس", time: "۲ ساعت پیش" },
+  { icon: Anchor, tone: "blue", text: "ورود محموله سه دستگاه لکسوس به انبار ارس", time: "دیروز" },
+  { icon: FileSignature, tone: "gold", text: "عقد قرارداد واردات بنز G500 مدل ۲۰۲۲", time: "۲ روز پیش" },
+  { icon: Truck, tone: "green", text: "تحویل پورشه کاین به مشتری استان تهران", time: "۳ روز پیش" },
+  { icon: Package, tone: "blue", text: "ترخیص محموله کالای تجاری از گمرک ارس", time: "هفته گذشته" },
 ];
 
-const testimonials = [
-  { name: "دکتر علیرضا کریمی", role: "مدیرعامل گروه صنعتی", text: "شفافیت در قیمت‌گذاری و سرعت ترخیص واقعاً متفاوت بود. لندکروزر من دقیقاً سر زمان وعده داده شده تحویل شد." },
-  { name: "مهندس سارا موسوی", role: "خریدار خصوصی", text: "تجربه‌ای کاملاً متفاوت از خرید یک کاین. تیم ارس‌ترید از انتخاب تا تحویل کنارم بودند." },
+const toneClasses: Record<string, string> = {
+  green: "bg-emerald-500/10 text-emerald-600",
+  blue: "bg-brand-blue/10 text-brand-blue",
+  gold: "bg-brand-gold/10 text-brand-gold",
+};
+
+const whyItems = [
+  { icon: ShieldCheck, title: "قانونی و رسمی", desc: "تمام فرآیندها مطابق قوانین گمرک" },
+  { icon: Eye, title: "شفافیت قیمت", desc: "هیچ هزینه‌ی پنهانی وجود ندارد" },
+  { icon: Globe2, title: "تأمین جهانی", desc: "شبکه‌ای از تأمین‌کنندگان معتبر" },
+  { icon: Activity, title: "گزارش لحظه‌ای", desc: "از خرید تا تحویل در دسترس شماست" },
+  { icon: Headphones, title: "مشاوره رایگان", desc: "تیم متخصص پاسخگوی شما" },
+  { icon: Award, title: "تضمین کیفیت", desc: "بازرسی فنی پیش از تحویل" },
 ];
+
+const faqs = [
+  {
+    q: "روند ترخیص خودرو از منطقه آزاد ارس چقدر طول می‌کشد؟",
+    a: "به‌طور میانگین بین ۷ تا ۱۴ روز کاری، بسته به نوع خودرو و مدارک ارائه‌شده، فرآیند ترخیص کامل می‌شود.",
+  },
+  {
+    q: "چه خودروهایی قابل واردات از طریق منطقه آزاد ارس هستند؟",
+    a: "خودروهای مدل ۲۰۱۰ به بالا با رعایت ضوابط روز گمرک و سازمان ملی استاندارد قابل واردات و ترخیص هستند.",
+  },
+  {
+    q: "هزینه‌های ترخیص چگونه محاسبه می‌شود؟",
+    a: "بر اساس ارزش گمرکی، حقوق ورودی، مالیات و عوارض رسمی محاسبه و در قالب پیش‌فاکتور شفاف به مشتری ارائه می‌شود.",
+  },
+  {
+    q: "آیا امکان پیش‌فروش و رزرو خودرو وجود دارد؟",
+    a: "بله، با عقد قرارداد و پرداخت بیعانه، خودروی موردنظر شما از مبدأ تأمین و در زمان توافقی تحویل می‌گردد.",
+  },
+  {
+    q: "آیا واردات کالای تجاری نیز انجام می‌دهید؟",
+    a: "بله، ارس‌ترید علاوه بر خودرو، واردات و ترخیص انواع کالای تجاری و صنعتی را نیز با همان فرآیند تخصصی انجام می‌دهد.",
+  },
+  {
+    q: "نحوه پشتیبانی پس از تحویل چگونه است؟",
+    a: "تیم پشتیبانی ما در طول فرآیند و پس از تحویل، پاسخگوی سؤالات و راهنمای مراحل قانونی پس از تحویل خواهد بود.",
+  },
+];
+
+// ---------- COMPONENT ----------
 
 function Index() {
   return (
     <div dir="rtl" className="font-sans bg-background text-foreground min-h-screen pb-28">
+      <Toaster position="top-center" richColors />
       <Navbar />
       <Hero />
-      <StatsStrip />
-      <FeaturedCars />
-      <PreOrder />
-      <Services />
-      <Trust />
-      <Contact />
+      <TrustStrip />
+      <MainServices />
+      <FeaturedVehicles />
+      <WorkProcess />
+      <RecentActivities />
+      <WhyUs />
+      <InquiryForm />
+      <FAQ />
+      <FinalCTA />
       <Footer />
       <BottomNav />
     </div>
@@ -92,13 +210,13 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border px-6 h-16 flex items-center justify-between">
       <a href="#" className="font-extrabold text-xl tracking-tight text-premium-black">
-        ARASS<span className="text-brand-blue">TRADE</span>
+        ARAS<span className="text-brand-blue">TRADE</span>
       </a>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-        <a href="#products" className="hover:text-foreground transition">خودروها</a>
-        <a href="#preorder" className="hover:text-foreground transition">پیش‌سفارش</a>
         <a href="#services" className="hover:text-foreground transition">خدمات</a>
-        <a href="#contact" className="hover:text-foreground transition">تماس</a>
+        <a href="#vehicles" className="hover:text-foreground transition">خودروها</a>
+        <a href="#process" className="hover:text-foreground transition">فرآیند کار</a>
+        <a href="#faq" className="hover:text-foreground transition">سؤالات متداول</a>
       </div>
       <div className="flex items-center gap-2">
         <Link to="/auth" className="hidden md:inline-flex h-10 items-center px-4 rounded-full border border-border text-sm font-semibold">
@@ -107,7 +225,7 @@ function Navbar() {
         <Link to="/auth" aria-label="حساب کاربری" className="size-10 rounded-full bg-surface grid place-items-center border border-border md:hidden">
           <User className="size-4" />
         </Link>
-        <a href="#contact" className="hidden md:inline-flex h-10 items-center px-5 rounded-full bg-premium-black text-primary-foreground text-sm font-semibold">ثبت سفارش</a>
+        <a href="#inquiry" className="hidden md:inline-flex h-10 items-center px-5 rounded-full bg-premium-black text-primary-foreground text-sm font-semibold">درخواست مشاوره</a>
       </div>
     </nav>
   );
@@ -125,27 +243,29 @@ function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue" />
           </span>
-          منطقه آزاد ارس
+          منطقه آزاد ارس • فعال
         </div>
 
         <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.15] mb-5 tracking-tight">
-          واردات هوشمند خودرو،
+          واردات و ترخیص
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-l from-brand-blue to-blue-400">
-            بی‌واسطه از جهان
+            تخصصی خودرو
           </span>
+          <br />
+          از منطقه آزاد ارس
         </h1>
         <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-[460px]">
-          اولین پلتفرم پریمیوم واردات خودروهای لوکس، کالای جهانی و ترخیص گمرکی در شمال غرب کشور.
+          ارس‌ترید با تکیه بر تیم تخصصی گمرکی و شبکه تأمین بین‌المللی، تمام مراحل واردات و ترخیص خودرو و کالای تجاری شما را با اطمینان به انجام می‌رساند.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 max-w-md">
-          <a href="#products" className="h-14 px-6 bg-premium-black text-primary-foreground rounded-2xl font-bold text-base shadow-xl shadow-premium-black/10 active:scale-95 transition-transform flex items-center justify-center gap-2">
-            مشاهده خودروها
+          <a href="#inquiry" className="h-14 px-6 bg-premium-black text-primary-foreground rounded-2xl font-bold text-base shadow-xl shadow-premium-black/10 active:scale-95 transition-transform flex items-center justify-center gap-2">
+            درخواست مشاوره
             <ArrowLeft className="size-4" />
           </a>
-          <a href="#contact" className="h-14 px-6 bg-background border border-border text-foreground rounded-2xl font-semibold active:scale-95 transition-transform flex items-center justify-center">
-            ثبت سفارش اختصاصی
+          <a href="#vehicles" className="h-14 px-6 bg-background border border-border text-foreground rounded-2xl font-semibold active:scale-95 transition-transform flex items-center justify-center">
+            مشاهده خودروها
           </a>
         </div>
 
@@ -159,8 +279,8 @@ function Hero() {
           />
           <div className="absolute bottom-4 right-4 left-4 bg-background/80 backdrop-blur-xl rounded-2xl p-4 flex items-center justify-between border border-border">
             <div>
-              <div className="text-xs text-muted-foreground">آخرین ورودی انبار</div>
-              <div className="font-bold">رولزرویس کالینان • ۲۰۲۲</div>
+              <div className="text-xs text-muted-foreground">آخرین ترخیص موفق</div>
+              <div className="font-bold">لندکروزر VXR • گمرک ارس</div>
             </div>
             <div className="text-xs bg-emerald-500/10 text-emerald-600 px-3 py-1.5 rounded-full font-bold">ترخیص شد</div>
           </div>
@@ -170,14 +290,15 @@ function Hero() {
   );
 }
 
-function StatsStrip() {
+function TrustStrip() {
   return (
-    <section className="px-6 py-4">
+    <section className="px-6 py-8">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-surface p-4 rounded-3xl border border-border">
-            <div className="text-2xl font-bold mb-1">{s.value}</div>
-            <div className="text-xs text-muted-foreground">{s.label}</div>
+        {trustItems.map((it) => (
+          <div key={it.title} className="bg-surface p-5 rounded-3xl border border-border">
+            <it.icon className="size-5 text-brand-blue mb-3" />
+            <div className="font-bold text-sm mb-1">{it.title}</div>
+            <div className="text-[11px] text-muted-foreground leading-relaxed">{it.desc}</div>
           </div>
         ))}
       </div>
@@ -185,42 +306,35 @@ function StatsStrip() {
   );
 }
 
-function FeaturedCars() {
+function MainServices() {
   return (
-    <section id="products" className="pt-14">
-      <div className="px-6 flex justify-between items-end mb-6">
-        <div>
-          <h2 className="text-3xl font-extrabold tracking-tight">خودروهای پیشنهادی</h2>
-          <p className="text-sm text-muted-foreground mt-1">از لندکروزر تا G-Class — مدل ۲۰۱۰ به بالا</p>
-        </div>
-        <a href="#" className="text-brand-blue text-sm font-medium hidden sm:inline">مشاهده همه</a>
+    <section id="services" className="px-6 py-12">
+      <div className="mb-8">
+        <div className="text-brand-blue text-xs font-bold mb-2">خدمات تخصصی</div>
+        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">خدمات اصلی ارس‌ترید</h2>
+        <p className="text-sm text-muted-foreground max-w-md">سه حوزه‌ی تخصصی ما برای رساندن کالا و خودروی شما به مقصد.</p>
       </div>
 
-      <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible gap-5 px-6 pb-6 no-scrollbar">
-        {cars.map((car) => (
-          <article key={car.name} className="min-w-[280px] md:min-w-0 bg-background rounded-[32px] overflow-hidden border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="relative w-full aspect-square bg-surface overflow-hidden">
-              <img src={car.img} alt={car.name} loading="lazy" width={800} height={800} className="w-full h-full object-cover" />
-              <div className="absolute top-3 right-3 bg-background/90 backdrop-blur px-2.5 py-1 rounded-full text-[10px] font-bold border border-border">
-                {car.origin}
-              </div>
+      <div className="grid md:grid-cols-3 gap-4">
+        {services.map((s) => (
+          <article key={s.title} className="group bg-background border border-border rounded-[32px] p-7 hover:border-brand-blue hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="size-14 rounded-2xl bg-brand-blue/10 text-brand-blue grid place-items-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+              <s.icon className="size-6" />
             </div>
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-2 gap-2">
-                <h3 className="font-bold text-base leading-snug">{car.name}</h3>
-                <span className={`shrink-0 text-[10px] ${badgeStyles[car.badgeTone]} px-2 py-0.5 rounded-full font-bold whitespace-nowrap`}>{car.badge}</span>
-              </div>
-              <div className="text-muted-foreground text-xs mb-4">مدل {car.year} • {car.eta}</div>
-              <div className="flex justify-between items-center">
-                <div className="font-bold text-base">
-                  {car.price}
-                  <span className="text-[10px] text-muted-foreground font-normal mr-1">تومان</span>
-                </div>
-                <a href="https://wa.me/989000000000" aria-label="سفارش در واتس‌اپ" className="size-10 bg-brand-blue rounded-full grid place-items-center text-white hover:scale-110 transition-transform">
-                  <MessageCircle className="size-4" />
-                </a>
-              </div>
-            </div>
+            <h3 className="font-extrabold text-lg mb-2">{s.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
+            <ul className="space-y-2 mb-6">
+              {s.bullets.map((b) => (
+                <li key={b} className="flex items-center gap-2 text-xs text-foreground">
+                  <CheckCircle2 className="size-3.5 text-brand-blue shrink-0" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <a href="#inquiry" className="text-brand-blue text-sm font-bold flex items-center gap-1.5">
+              اطلاعات بیشتر
+              <ArrowLeft className="size-3.5" />
+            </a>
           </article>
         ))}
       </div>
@@ -228,33 +342,91 @@ function FeaturedCars() {
   );
 }
 
-function PreOrder() {
-  const items = [
-    { name: "مرسدس بنز GLE 450", country: "آلمان", days: "۷" },
-    { name: "لکسوس RX 500h", country: "ژاپن", days: "۱۲" },
-    { name: "بنتلی بنتایگا", country: "انگلستان", days: "۱۸" },
-  ];
+function VehicleCard({ v }: { v: { name: string; year: string; origin: string; img: string; badge: string } }) {
   return (
-    <section id="preorder" className="px-6 py-16 bg-surface mt-16 rounded-[40px] mx-3">
-      <div className="flex items-center gap-2 text-brand-gold text-xs font-bold mb-2">
-        <Sparkles className="size-4" />
-        محصولات در راه
+    <article className="min-w-[260px] md:min-w-0 bg-background rounded-[28px] overflow-hidden border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      <div className="relative w-full aspect-[4/3] bg-surface overflow-hidden">
+        <img src={v.img} alt={v.name} loading="lazy" className="w-full h-full object-cover" />
+        <div className="absolute top-3 right-3 bg-background/90 backdrop-blur px-2.5 py-1 rounded-full text-[10px] font-bold border border-border">
+          {v.origin}
+        </div>
+        <div className="absolute bottom-3 left-3 bg-premium-black text-white px-2.5 py-1 rounded-full text-[10px] font-bold">
+          {v.badge}
+        </div>
       </div>
-      <h2 className="text-3xl font-extrabold tracking-tight mb-2">پیش‌سفارش هوشمند</h2>
-      <p className="text-muted-foreground text-sm mb-8 max-w-md">با پرداخت بیعانه، خودروی موردنظر را قبل از رسیدن به انبار رزرو کنید.</p>
+      <div className="p-5">
+        <h3 className="font-bold text-base mb-1">{v.name}</h3>
+        <div className="text-muted-foreground text-xs mb-4">مدل {v.year}</div>
+        <a href="#inquiry" className="w-full h-10 bg-surface hover:bg-premium-black hover:text-white rounded-full text-xs font-bold flex items-center justify-center transition-colors">
+          استعلام قیمت
+        </a>
+      </div>
+    </article>
+  );
+}
 
-      <div className="space-y-4">
-        {items.map((it) => (
-          <div key={it.name} className="bg-background rounded-3xl p-5 border border-border flex items-center justify-between">
-            <div>
-              <div className="font-bold mb-1">{it.name}</div>
-              <div className="text-xs text-muted-foreground">حمل از {it.country}</div>
+function FeaturedVehicles() {
+  return (
+    <section id="vehicles" className="py-12 bg-surface mx-3 rounded-[40px]">
+      <div className="px-6 mb-6">
+        <div className="text-brand-gold text-xs font-bold mb-2 flex items-center gap-1.5">
+          <Sparkles className="size-3.5" />
+          گالری خودروها
+        </div>
+        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">خودروهای ارس‌ترید</h2>
+        <p className="text-sm text-muted-foreground">از موجود در انبار تا پیش‌فروش — هر سه گروه را ببینید.</p>
+      </div>
+
+      <Tabs defaultValue="ready" className="w-full">
+        <div className="px-6">
+          <TabsList dir="rtl" className="bg-background border border-border rounded-full h-12 p-1 w-full md:w-auto flex">
+            <TabsTrigger value="ready" className="flex-1 rounded-full text-xs md:text-sm data-[state=active]:bg-premium-black data-[state=active]:text-white">
+              آماده تحویل
+            </TabsTrigger>
+            <TabsTrigger value="shipping" className="flex-1 rounded-full text-xs md:text-sm data-[state=active]:bg-premium-black data-[state=active]:text-white">
+              در حال واردات
+            </TabsTrigger>
+            <TabsTrigger value="preorder" className="flex-1 rounded-full text-xs md:text-sm data-[state=active]:bg-premium-black data-[state=active]:text-white">
+              پیش‌فروش
+            </TabsTrigger>
+          </TabsList>
+        </div>
+
+        {(["ready", "shipping", "preorder"] as const).map((key) => (
+          <TabsContent key={key} value={key} className="mt-6">
+            <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible gap-5 px-6 pb-4 no-scrollbar">
+              {vehicleGroups[key].map((v) => (
+                <VehicleCard key={v.name + v.badge} v={v} />
+              ))}
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-extrabold text-brand-blue">{it.days}</div>
-              <div className="text-[10px] text-muted-foreground">روز تا ورود</div>
+          </TabsContent>
+        ))}
+      </Tabs>
+    </section>
+  );
+}
+
+function WorkProcess() {
+  return (
+    <section id="process" className="px-6 py-16">
+      <div className="mb-8">
+        <div className="text-brand-blue text-xs font-bold mb-2">فرآیند کار</div>
+        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">از درخواست تا تحویل</h2>
+        <p className="text-sm text-muted-foreground max-w-md">شش گام شفاف برای واردات و ترخیص خودرو یا کالای شما.</p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        {processSteps.map((s, i) => (
+          <div key={s.n} className="relative bg-surface border border-border rounded-3xl p-6">
+            <div className="absolute top-4 left-4 text-4xl font-extrabold text-foreground/5">{s.n}</div>
+            <div className="size-11 rounded-xl bg-background border border-border grid place-items-center mb-4 text-brand-blue">
+              <s.icon className="size-5" />
             </div>
-            <button className="h-10 px-4 bg-premium-black text-primary-foreground rounded-full text-xs font-bold">رزرو</button>
+            <h3 className="font-bold mb-1">{s.title}</h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+            {i < processSteps.length - 1 && (
+              <div className="hidden md:block absolute top-1/2 -left-2 size-4 rounded-full bg-brand-blue/20 border-2 border-background" />
+            )}
           </div>
         ))}
       </div>
@@ -262,105 +434,230 @@ function PreOrder() {
   );
 }
 
-function Services() {
+function RecentActivities() {
   return (
-    <section id="services" className="px-6 py-16">
+    <section className="px-6 py-12">
+      <div className="mb-6 flex items-end justify-between">
+        <div>
+          <div className="text-brand-gold text-xs font-bold mb-2">به‌روزترین اقدامات</div>
+          <h2 className="text-3xl font-extrabold tracking-tight">فعالیت‌های اخیر</h2>
+        </div>
+        <div className="flex items-center gap-1.5 text-xs text-emerald-600">
+          <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+          زنده
+        </div>
+      </div>
+
+      <div className="bg-surface border border-border rounded-[32px] divide-y divide-border overflow-hidden">
+        {activities.map((a, i) => (
+          <div key={i} className="flex items-center gap-4 p-5">
+            <div className={`size-11 rounded-2xl ${toneClasses[a.tone]} grid place-items-center shrink-0`}>
+              <a.icon className="size-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-medium text-sm leading-relaxed">{a.text}</div>
+            </div>
+            <div className="text-[11px] text-muted-foreground shrink-0">{a.time}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function WhyUs() {
+  return (
+    <section className="px-6 py-12">
       <div className="bg-premium-black rounded-[40px] p-8 md:p-12 text-primary-foreground relative overflow-hidden">
         <div className="absolute top-0 right-0 w-48 h-48 bg-brand-blue/30 blur-[80px]" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-gold/20 blur-[80px]" />
 
         <div className="relative">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">
-            خدمات کارگزاری
+          <div className="text-brand-gold text-xs font-bold mb-3">چرا ارس‌ترید؟</div>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-3 leading-tight">
+            انتخابی هوشمندانه برای
             <br />
-            ارس‌ترید
+            واردات و ترخیص
           </h2>
-          <p className="text-white/60 text-sm mb-10 leading-relaxed max-w-md">
-            صفر تا صد واردات — از خرید در بازارهای جهانی تا تحویل درب منزل شما.
+          <p className="text-white/60 text-sm mb-10 max-w-md leading-relaxed">
+            تجربه، تخصص و شفافیت — سه دلیل اصلی اعتماد مشتریان حرفه‌ای به ما.
           </p>
 
-          <div className="space-y-5">
-            {steps.map((s) => (
-              <div key={s.n} className="flex gap-4 items-center">
-                <div className="size-12 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center font-bold text-brand-blue">
-                  <s.icon className="size-5" />
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {whyItems.map((w) => (
+              <div key={w.title} className="bg-white/5 border border-white/10 rounded-2xl p-5">
+                <div className="size-10 rounded-xl bg-brand-blue/20 text-brand-blue grid place-items-center mb-3">
+                  <w.icon className="size-5" />
                 </div>
-                <div className="flex-1">
-                  <div className="font-bold flex items-center gap-2">
-                    <span className="text-white/40 text-xs">{s.n}</span>
-                    {s.title}
-                  </div>
-                  <div className="text-xs text-white/50 mt-0.5">{s.desc}</div>
-                </div>
+                <div className="font-bold text-sm mb-1">{w.title}</div>
+                <div className="text-[11px] text-white/50 leading-relaxed">{w.desc}</div>
               </div>
             ))}
           </div>
-
-          <a href="#contact" className="mt-10 w-full h-12 bg-background text-foreground rounded-2xl font-bold flex items-center justify-center">
-            درخواست مشاوره رایگان
-          </a>
         </div>
       </div>
     </section>
   );
 }
 
-function Trust() {
-  return (
-    <section className="px-6 py-12">
-      <h2 className="text-3xl font-extrabold tracking-tight mb-2">چرا ارس‌ترید؟</h2>
-      <p className="text-muted-foreground text-sm mb-8">اعتماد بیش از هزار مشتری حرفه‌ای در سراسر کشور.</p>
+function InquiryForm() {
+  const [loading, setLoading] = useState(false);
 
-      <div className="space-y-4">
-        {testimonials.map((t) => (
-          <figure key={t.name} className="bg-surface rounded-3xl p-6 border border-border">
-            <div className="flex gap-1 mb-3">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="size-1.5 rounded-full bg-brand-gold" />
-              ))}
-            </div>
-            <blockquote className="text-sm leading-relaxed text-foreground mb-5">«{t.text}»</blockquote>
-            <figcaption className="flex items-center gap-3">
-              <div className="size-9 rounded-full bg-gradient-to-br from-brand-blue to-brand-gold" />
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const type = String(data.get("type") || "").trim();
+
+    if (!name || !phone || !type) {
+      toast.error("لطفاً نام، شماره تماس و نوع درخواست را تکمیل کنید");
+      return;
+    }
+    if (!/^09\d{9}$/.test(phone)) {
+      toast.error("شماره موبایل معتبر نیست");
+      return;
+    }
+
+    setLoading(true);
+    // TODO: connect to Supabase / CMS endpoint
+    setTimeout(() => {
+      toast.success("درخواست شما با موفقیت ثبت شد. به‌زودی تماس می‌گیریم.");
+      form.reset();
+      setLoading(false);
+    }, 700);
+  };
+
+  return (
+    <section id="inquiry" className="px-6 py-12">
+      <div className="grid md:grid-cols-5 gap-6 items-start">
+        <div className="md:col-span-2">
+          <div className="text-brand-blue text-xs font-bold mb-2">استعلام سریع</div>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">درخواست مشاوره</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+            فرم را تکمیل کنید؛ کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرند.
+          </p>
+          <div className="space-y-3">
+            <a href="tel:+982188887777" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
+              <Phone className="size-5 text-brand-blue" />
               <div>
-                <div className="text-xs font-bold">{t.name}</div>
-                <div className="text-[10px] text-muted-foreground">{t.role}</div>
+                <div className="text-[11px] text-muted-foreground">تماس مستقیم</div>
+                <div className="font-bold text-sm">۰۲۱-۸۸۸۸۷۷۷۷</div>
               </div>
-            </figcaption>
-          </figure>
-        ))}
+            </a>
+            <a href="https://wa.me/989000000000" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
+              <MessageCircle className="size-5 text-emerald-600" />
+              <div>
+                <div className="text-[11px] text-muted-foreground">واتس‌اپ</div>
+                <div className="font-bold text-sm">پاسخ‌گویی سریع</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form onSubmit={onSubmit} className="md:col-span-3 bg-surface border border-border rounded-[32px] p-6 md:p-8 space-y-4">
+          <div className="grid md:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-bold mb-2">نام و نام‌خانوادگی</label>
+              <Input name="name" placeholder="مثلاً علی محمدی" className="bg-background h-12 rounded-2xl" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold mb-2">شماره موبایل</label>
+              <Input name="phone" inputMode="numeric" placeholder="09123456789" className="bg-background h-12 rounded-2xl" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold mb-2">نوع درخواست</label>
+            <Select name="type" dir="rtl">
+              <SelectTrigger className="bg-background h-12 rounded-2xl w-full">
+                <SelectValue placeholder="انتخاب خدمت موردنظر" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="car-clearance">ترخیص خودرو</SelectItem>
+                <SelectItem value="car-import">واردات خودرو</SelectItem>
+                <SelectItem value="goods">واردات و ترخیص کالا</SelectItem>
+                <SelectItem value="consult">مشاوره عمومی</SelectItem>
+              </SelectContent>
+            </Select>
+            {/* hidden field to capture select value through native FormData */}
+            <input type="hidden" name="type" />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold mb-2">توضیحات (اختیاری)</label>
+            <Textarea name="note" rows={4} placeholder="مدل خودرو، کشور مبدأ یا توضیحات تکمیلی..." className="bg-background rounded-2xl" />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full h-12 bg-premium-black text-primary-foreground rounded-2xl font-bold flex items-center justify-center gap-2 disabled:opacity-60"
+          >
+            {loading ? "در حال ارسال..." : "ارسال درخواست"}
+            {!loading && <ArrowLeft className="size-4" />}
+          </button>
+
+          <p className="text-[11px] text-muted-foreground text-center">
+            با ارسال این فرم، با قوانین و حریم خصوصی ارس‌ترید موافقت می‌کنید.
+          </p>
+        </form>
       </div>
     </section>
   );
 }
 
-function Contact() {
-  const channels = [
-    { label: "واتس‌اپ", value: "پیام مستقیم", icon: MessageCircle, href: "https://wa.me/989000000000" },
-    { label: "تلگرام", value: "@arastrade", icon: Send, href: "https://t.me/arastrade" },
-    { label: "اینستاگرام", value: "@arastrade", icon: Instagram, href: "https://instagram.com/arastrade" },
-    { label: "تماس مستقیم", value: "۰۲۱-۸۸۸۸۷۷۷۷", icon: Phone, href: "tel:+982188887777" },
-  ];
+function FAQ() {
   return (
-    <section id="contact" className="px-6 py-12">
-      <h2 className="text-3xl font-extrabold tracking-tight mb-2">تماس با ما</h2>
-      <p className="text-muted-foreground text-sm mb-8">تیم پشتیبانی ارس‌ترید پاسخگوی شماست.</p>
-
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        {channels.map((c) => (
-          <a key={c.label} href={c.href} className="bg-surface border border-border rounded-3xl p-5 hover:border-brand-blue transition-colors">
-            <c.icon className="size-5 text-brand-blue mb-3" />
-            <div className="font-bold text-sm">{c.label}</div>
-            <div className="text-xs text-muted-foreground mt-0.5">{c.value}</div>
-          </a>
-        ))}
+    <section id="faq" className="px-6 py-12">
+      <div className="mb-8 text-center md:text-right">
+        <div className="text-brand-blue text-xs font-bold mb-2">سؤالات متداول</div>
+        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">پاسخ به پرتکرارترین پرسش‌ها</h2>
+        <p className="text-sm text-muted-foreground">اگر سؤال شما اینجا نیست، با ما تماس بگیرید.</p>
       </div>
 
-      <div className="bg-surface rounded-3xl p-5 border border-border flex items-start gap-3">
-        <MapPin className="size-5 text-brand-gold shrink-0 mt-0.5" />
-        <div>
-          <div className="font-bold text-sm mb-1">دفتر مرکزی</div>
-          <div className="text-xs text-muted-foreground leading-relaxed">منطقه آزاد ارس، جلفا، فاز یک، مجتمع تجاری ارس‌ترید</div>
+      <Accordion type="single" collapsible className="bg-surface border border-border rounded-[32px] divide-y divide-border overflow-hidden">
+        {faqs.map((f, i) => (
+          <AccordionItem key={i} value={`item-${i}`} className="px-6 border-b-0">
+            <AccordionTrigger className="text-right font-bold text-sm py-5 hover:no-underline">
+              {f.q}
+            </AccordionTrigger>
+            <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-5">
+              {f.a}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </section>
+  );
+}
+
+function FinalCTA() {
+  return (
+    <section className="px-6 py-12">
+      <div className="bg-gradient-to-bl from-premium-black via-premium-black to-brand-blue/40 rounded-[40px] p-10 md:p-16 text-primary-foreground text-center relative overflow-hidden">
+        <div className="absolute -top-10 -right-10 size-60 rounded-full bg-brand-gold/20 blur-3xl" />
+        <div className="absolute -bottom-10 -left-10 size-60 rounded-full bg-brand-blue/30 blur-3xl" />
+        <div className="relative">
+          <h2 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+            خودروی رویایی شما،
+            <br />
+            یک تماس فاصله دارد.
+          </h2>
+          <p className="text-white/70 max-w-md mx-auto text-sm mb-8 leading-relaxed">
+            همین حالا با ارس‌ترید تماس بگیرید و مشاوره رایگان واردات یا ترخیص خود را دریافت کنید.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+            <a href="tel:+982188887777" className="h-14 px-6 bg-white text-premium-black rounded-2xl font-bold flex items-center justify-center gap-2 flex-1">
+              <Phone className="size-4" />
+              تماس مستقیم
+            </a>
+            <a href="https://wa.me/989000000000" className="h-14 px-6 bg-emerald-500 text-white rounded-2xl font-bold flex items-center justify-center gap-2 flex-1">
+              <MessageCircle className="size-4" />
+              واتس‌اپ
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -370,15 +667,38 @@ function Contact() {
 function Footer() {
   return (
     <footer className="px-6 pt-12 pb-8 border-t border-border mt-8">
-      <div className="flex items-center justify-between mb-6">
-        <div className="font-extrabold text-lg tracking-tight">
-          ARASS<span className="text-brand-blue">TRADE</span>
+      <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="md:col-span-2">
+          <div className="font-extrabold text-lg tracking-tight mb-3">
+            ARAS<span className="text-brand-blue">TRADE</span>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">
+            ارس‌ترید، متخصص واردات و ترخیص خودرو و کالای تجاری از منطقه آزاد ارس با شبکه‌ای از همکاران بین‌المللی.
+          </p>
         </div>
-        <div className="text-[10px] text-muted-foreground tracking-widest">© ۱۴۰۳</div>
+        <div>
+          <div className="font-bold text-sm mb-3">دسترسی سریع</div>
+          <ul className="space-y-2 text-xs text-muted-foreground">
+            <li><a href="#services" className="hover:text-foreground">خدمات</a></li>
+            <li><a href="#vehicles" className="hover:text-foreground">خودروها</a></li>
+            <li><a href="#process" className="hover:text-foreground">فرآیند کار</a></li>
+            <li><a href="#faq" className="hover:text-foreground">سؤالات متداول</a></li>
+          </ul>
+        </div>
+        <div>
+          <div className="font-bold text-sm mb-3">تماس</div>
+          <ul className="space-y-2 text-xs text-muted-foreground">
+            <li className="flex items-center gap-2"><Phone className="size-3.5" /> ۰۲۱-۸۸۸۸۷۷۷۷</li>
+            <li className="flex items-center gap-2"><Send className="size-3.5" /> @arastrade</li>
+            <li className="flex items-center gap-2"><Instagram className="size-3.5" /> @arastrade</li>
+            <li className="flex items-start gap-2"><MapPin className="size-3.5 mt-0.5 shrink-0" /> منطقه آزاد ارس، جلفا</li>
+          </ul>
+        </div>
       </div>
-      <p className="text-xs text-muted-foreground leading-relaxed max-w-md">
-        تمامی حقوق مادی و معنوی این وب‌سایت متعلق به مجموعه ارس‌ترید است.
-      </p>
+      <div className="flex items-center justify-between pt-6 border-t border-border">
+        <div className="text-[10px] text-muted-foreground">© ۱۴۰۳ ارس‌ترید • تمامی حقوق محفوظ است</div>
+        <FileCheck className="size-4 text-brand-blue" />
+      </div>
     </footer>
   );
 }
@@ -386,19 +706,19 @@ function Footer() {
 function BottomNav() {
   return (
     <div className="fixed bottom-4 left-4 right-4 h-16 bg-premium-black/95 backdrop-blur-lg rounded-3xl flex items-center justify-around px-4 border border-white/10 md:hidden z-40 shadow-2xl">
-      <a href="#" className="size-10 grid place-items-center text-white/60">
+      <a href="#" aria-label="خانه" className="size-10 grid place-items-center text-white/60">
         <Home className="size-5" />
       </a>
-      <a href="#products" className="size-10 grid place-items-center text-white/60">
+      <a href="#vehicles" aria-label="خودروها" className="size-10 grid place-items-center text-white/60">
         <Search className="size-5" />
       </a>
-      <a href="#contact" className="size-12 rounded-2xl bg-brand-blue grid place-items-center text-white shadow-lg shadow-brand-blue/40">
+      <a href="#inquiry" aria-label="درخواست مشاوره" className="size-12 rounded-2xl bg-brand-blue grid place-items-center text-white shadow-lg shadow-brand-blue/40">
         <MessageCircle className="size-5" />
       </a>
-      <a href="#preorder" className="size-10 grid place-items-center text-white/60">
+      <a href="#services" aria-label="خدمات" className="size-10 grid place-items-center text-white/60">
         <Heart className="size-5" />
       </a>
-      <Link to="/auth" className="size-10 grid place-items-center text-white/60">
+      <Link to="/auth" aria-label="حساب کاربری" className="size-10 grid place-items-center text-white/60">
         <User className="size-5" />
       </Link>
     </div>
