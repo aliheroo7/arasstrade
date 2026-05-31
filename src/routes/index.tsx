@@ -233,56 +233,62 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section className="px-6 pt-12 pb-10 overflow-hidden relative">
-      <div className="absolute -top-20 -left-20 size-72 rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
-      <div className="absolute top-40 -right-32 size-72 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden">
+      <div className="absolute -top-24 -left-24 size-[420px] rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-40 -right-32 size-[420px] rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
 
-      <div className="relative">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-medium mb-6">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue" />
-          </span>
-          منطقه آزاد ارس • فعال
-        </div>
-
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.15] mb-5 tracking-tight">
-          واردات و ترخیص
-          <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-l from-brand-blue to-blue-400">
-            تخصصی خودرو
-          </span>
-          <br />
-          از منطقه آزاد ارس
-        </h1>
-        <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-[460px]">
-          ارس‌ترید با تکیه بر تیم تخصصی گمرکی و شبکه تأمین بین‌المللی، تمام مراحل واردات و ترخیص خودرو و کالای تجاری شما را با اطمینان به انجام می‌رساند.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3 max-w-md">
-          <a href="#inquiry" className="h-14 px-6 bg-premium-black text-primary-foreground rounded-2xl font-bold text-base shadow-xl shadow-premium-black/10 active:scale-95 transition-transform flex items-center justify-center gap-2">
-            درخواست مشاوره
-            <ArrowLeft className="size-4" />
-          </a>
-          <a href="#vehicles" className="h-14 px-6 bg-background border border-border text-foreground rounded-2xl font-semibold active:scale-95 transition-transform flex items-center justify-center">
-            مشاهده خودروها
-          </a>
-        </div>
-
-        <div className="mt-12 relative rounded-[32px] overflow-hidden border border-border shadow-2xl shadow-premium-black/10">
-          <img
-            src={heroImport}
-            alt="خودروی لوکس وارداتی در انبار منطقه آزاد ارس"
-            width={1200}
-            height={1400}
-            className="w-full h-auto object-cover"
-          />
-          <div className="absolute bottom-4 right-4 left-4 bg-background/80 backdrop-blur-xl rounded-2xl p-4 flex items-center justify-between border border-border">
-            <div>
-              <div className="text-xs text-muted-foreground">آخرین ترخیص موفق</div>
-              <div className="font-bold">لندکروزر VXR • گمرک ارس</div>
+      <div className="relative mx-auto max-w-7xl px-6 pt-14 pb-16 lg:pt-20 lg:pb-24">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Text column */}
+          <div className="lg:col-span-6 lg:order-1 order-2 text-center lg:text-right">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-medium mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue" />
+              </span>
+              منطقه آزاد ارس • فعال
             </div>
-            <div className="text-xs bg-emerald-500/10 text-emerald-600 px-3 py-1.5 rounded-full font-bold">ترخیص شد</div>
+
+            <h1 className="font-bold tracking-tight text-premium-black text-[2.25rem] sm:text-5xl lg:text-[3.5rem] leading-[1.2] mb-6">
+              واردات و ترخیص تخصصی خودرو
+              <span className="block mt-2 text-brand-blue font-extrabold">
+                از منطقه آزاد ارس
+              </span>
+            </h1>
+
+            <p className="text-muted-foreground text-base lg:text-lg leading-[1.9] mb-9 max-w-xl mx-auto lg:mx-0">
+              ارس‌ترید با تکیه بر تیم تخصصی گمرکی و شبکه تأمین بین‌المللی، تمام مراحل واردات و ترخیص خودرو و کالای تجاری شما را با اطمینان به انجام می‌رساند.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-center lg:justify-start">
+              <a href="#inquiry" className="h-14 px-7 bg-premium-black text-primary-foreground rounded-2xl font-semibold text-base shadow-xl shadow-premium-black/10 active:scale-95 transition-transform inline-flex items-center justify-center gap-2">
+                درخواست مشاوره ترخیص خودرو
+                <ArrowLeft className="size-4" />
+              </a>
+              <a href="#vehicles" className="h-14 px-7 bg-background border border-border text-foreground rounded-2xl font-medium active:scale-95 transition-transform inline-flex items-center justify-center">
+                مشاهده خودروها
+              </a>
+            </div>
+          </div>
+
+          {/* Image column */}
+          <div className="lg:col-span-6 lg:order-2 order-1">
+            <div className="relative rounded-[32px] overflow-hidden border border-border shadow-2xl shadow-premium-black/10">
+              <img
+                src={heroImport}
+                alt="خودروی لوکس وارداتی در انبار منطقه آزاد ارس"
+                width={1200}
+                height={1400}
+                className="w-full h-auto object-cover aspect-[4/5] lg:aspect-[4/4]"
+              />
+              <div className="absolute bottom-4 right-4 left-4 bg-background/85 backdrop-blur-xl rounded-2xl p-4 flex items-center justify-between border border-border">
+                <div>
+                  <div className="text-xs text-muted-foreground">آخرین ترخیص موفق</div>
+                  <div className="font-bold text-sm">خودروی لوکس • گمرک ارس</div>
+                </div>
+                <div className="text-xs bg-emerald-500/10 text-emerald-600 px-3 py-1.5 rounded-full font-bold">ترخیص شد</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
