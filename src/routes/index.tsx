@@ -80,7 +80,7 @@ export const Route = createFileRoute("/")({
 
 const trustItems = [
   { icon: Award, title: "بیش از ۵ سال تجربه", desc: "سابقه‌ای موفق در واردات و ترخیص" },
-  { icon: Eye, title: "فرآیند شفاف", desc: "گزارش لحظه‌ای از تمام مراحل" },
+  { icon: Eye, title: "فرآیند شفاف", desc: "گزارش مرحله‌ای از تمام مراحل" },
   { icon: Globe2, title: "شبکه تأمین بین‌المللی", desc: "همکاران معتبر در امارات، آلمان، ژاپن" },
   { icon: Headphones, title: "پشتیبانی تخصصی", desc: "تیم حقوقی و گمرکی پاسخگو" },
 ];
@@ -134,10 +134,10 @@ const processSteps = [
 ];
 
 const activities = [
-  { icon: CheckCircle2, tone: "green", text: "ترخیص یک دستگاه لندکروزر VXR از گمرک ارس", time: "۲ ساعت پیش" },
-  { icon: Anchor, tone: "blue", text: "ورود محموله سه دستگاه لکسوس به انبار ارس", time: "دیروز" },
-  { icon: FileSignature, tone: "gold", text: "عقد قرارداد واردات بنز G500 مدل ۲۰۲۲", time: "۲ روز پیش" },
-  { icon: Truck, tone: "green", text: "تحویل پورشه کاین به مشتری استان تهران", time: "۳ روز پیش" },
+  { icon: CheckCircle2, tone: "green", text: "ترخیص موفق یک دستگاه خودروی لوکس از گمرک ارس", time: "۲ ساعت پیش" },
+  { icon: Anchor, tone: "blue", text: "ورود محموله جدید خودرو به انبار منطقه آزاد ارس", time: "دیروز" },
+  { icon: FileSignature, tone: "gold", text: "عقد قرارداد جدید واردات خودروی لوکس", time: "۲ روز پیش" },
+  { icon: Truck, tone: "green", text: "تحویل خودروی وارداتی به یکی از مشتریان محترم", time: "۳ روز پیش" },
   { icon: Package, tone: "blue", text: "ترخیص محموله کالای تجاری از گمرک ارس", time: "هفته گذشته" },
 ];
 
@@ -151,7 +151,7 @@ const whyItems = [
   { icon: ShieldCheck, title: "قانونی و رسمی", desc: "تمام فرآیندها مطابق قوانین گمرک" },
   { icon: Eye, title: "شفافیت قیمت", desc: "هیچ هزینه‌ی پنهانی وجود ندارد" },
   { icon: Globe2, title: "تأمین جهانی", desc: "شبکه‌ای از تأمین‌کنندگان معتبر" },
-  { icon: Activity, title: "گزارش لحظه‌ای", desc: "از خرید تا تحویل در دسترس شماست" },
+  { icon: Activity, title: "گزارش مرحله‌ای", desc: "از خرید تا تحویل در دسترس شماست" },
   { icon: Headphones, title: "مشاوره رایگان", desc: "تیم متخصص پاسخگوی شما" },
   { icon: Award, title: "تضمین کیفیت", desc: "بازرسی فنی پیش از تحویل" },
 ];
