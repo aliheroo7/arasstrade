@@ -235,13 +235,15 @@ function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute -top-24 -left-24 size-[420px] rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
-      <div className="absolute top-40 -right-32 size-[420px] rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-14 pb-16 lg:pt-20 lg:pb-24">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Text column */}
-          <div className="lg:col-span-6 lg:order-1 order-2 text-center lg:text-right">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-medium mb-6">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-12 pb-16 lg:pt-24 lg:pb-28">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
+          {/* Text column — mobile first, desktop right */}
+          <div className="lg:col-span-7 lg:order-2 order-1 text-center lg:text-right flex flex-col justify-center">
+            <div
+              className="opacity-0 animate-fade-in inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-medium mb-6 self-center lg:self-end"
+              style={{ animationDelay: "0ms", animationFillMode: "forwards" }}
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue" />
@@ -249,44 +251,101 @@ function Hero() {
               منطقه آزاد ارس • فعال
             </div>
 
-            <h1 className="font-bold tracking-tight text-premium-black text-[2.25rem] sm:text-5xl lg:text-[3.5rem] leading-[1.2] mb-6">
-              واردات و ترخیص تخصصی خودرو
-              <span className="block mt-2 text-brand-blue font-extrabold">
+            <div
+              dir="ltr"
+              className="opacity-0 animate-fade-in text-[11px] tracking-[0.25em] text-muted-foreground mb-4 font-medium lg:text-right text-center"
+              style={{ animationDelay: "80ms", animationFillMode: "forwards" }}
+            >
+              ARAS TRADE — INTERNATIONAL TRADE &amp; CUSTOMS
+            </div>
+
+            <h1 className="font-bold tracking-tight text-premium-black text-[2rem] sm:text-[2.5rem] lg:text-[3.25rem] leading-[1.25] mb-6">
+              <span
+                className="block opacity-0 animate-fade-in"
+                style={{ animationDelay: "120ms", animationFillMode: "forwards" }}
+              >
+                واردات و ترخیص تخصصی
+              </span>
+              <span
+                className="block mt-1 opacity-0 animate-fade-in"
+                style={{ animationDelay: "240ms", animationFillMode: "forwards" }}
+              >
+                خودرو و کالای تجاری
+              </span>
+              <span
+                className="block mt-2 text-brand-blue opacity-0 animate-fade-in"
+                style={{ animationDelay: "360ms", animationFillMode: "forwards" }}
+              >
                 از منطقه آزاد ارس
               </span>
             </h1>
 
-            <p className="text-muted-foreground text-base lg:text-lg leading-[1.9] mb-9 max-w-xl mx-auto lg:mx-0">
-              ارس‌ترید با تکیه بر تیم تخصصی گمرکی و شبکه تأمین بین‌المللی، تمام مراحل واردات و ترخیص خودرو و کالای تجاری شما را با اطمینان به انجام می‌رساند.
+            <p
+              className="opacity-0 animate-fade-in text-muted-foreground text-[15px] lg:text-[17px] leading-[2] mb-8 max-w-[34rem] mx-auto lg:mx-0 lg:ml-auto lg:mr-0"
+              style={{ animationDelay: "480ms", animationFillMode: "forwards" }}
+            >
+              ارس‌ترید با تکیه بر تیم تخصصی گمرکی و شبکه تأمین بین‌المللی، تمام مراحل واردات و ترخیص خودرو و کالای تجاری شما را با اطمینان و شفافیت کامل به انجام می‌رساند.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-center lg:justify-start">
-              <a href="#inquiry" className="h-14 px-7 bg-premium-black text-primary-foreground rounded-2xl font-semibold text-base shadow-xl shadow-premium-black/10 active:scale-95 transition-transform inline-flex items-center justify-center gap-2">
+            <div
+              className="opacity-0 animate-fade-in flex flex-col sm:flex-row gap-3 sm:items-center justify-center lg:justify-end"
+              style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
+            >
+              <a
+                href="#inquiry"
+                className="h-14 px-7 bg-premium-black text-primary-foreground rounded-2xl font-semibold text-base shadow-[0_14px_36px_-12px_oklch(0.18_0.005_270/0.55)] hover:-translate-y-0.5 active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2"
+              >
                 درخواست مشاوره ترخیص خودرو
                 <ArrowLeft className="size-4" />
               </a>
-              <a href="#vehicles" className="h-14 px-7 bg-background border border-border text-foreground rounded-2xl font-medium active:scale-95 transition-transform inline-flex items-center justify-center">
+              <a
+                href="#vehicles"
+                className="h-14 px-7 bg-transparent border border-border text-foreground/80 hover:text-foreground hover:border-foreground/40 rounded-2xl font-medium active:scale-[0.98] transition-all inline-flex items-center justify-center"
+              >
                 مشاهده خودروها
               </a>
             </div>
+
+            <div
+              className="opacity-0 animate-fade-in mt-5 flex items-center gap-2 text-xs text-muted-foreground justify-center lg:justify-end"
+              style={{ animationDelay: "720ms", animationFillMode: "forwards" }}
+            >
+              <ShieldCheck className="size-3.5 text-brand-blue" />
+              مشاوره رایگان • بدون تعهد • پاسخگویی در کمتر از ۲۴ ساعت
+            </div>
           </div>
 
-          {/* Image column */}
-          <div className="lg:col-span-6 lg:order-2 order-1">
-            <div className="relative rounded-[32px] overflow-hidden border border-border shadow-2xl shadow-premium-black/10">
+          {/* Image column — desktop left, mobile last */}
+          <div
+            className="lg:col-span-5 lg:order-1 order-2 opacity-0 animate-fade-in"
+            style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
+          >
+            <div className="relative h-full rounded-[32px] overflow-hidden border border-border shadow-2xl shadow-premium-black/10">
               <img
                 src={heroImport}
-                alt="خودروی لوکس وارداتی در انبار منطقه آزاد ارس"
+                alt="انبار و گمرک منطقه آزاد ارس — ترخیص و ترانزیت خودرو"
                 width={1200}
-                height={1400}
-                className="w-full h-auto object-cover aspect-[4/5] lg:aspect-[4/4]"
+                height={1500}
+                className="w-full h-full object-cover aspect-[4/5] lg:aspect-auto lg:min-h-[560px]"
               />
-              <div className="absolute bottom-4 right-4 left-4 bg-background/85 backdrop-blur-xl rounded-2xl p-4 flex items-center justify-between border border-border">
-                <div>
-                  <div className="text-xs text-muted-foreground">آخرین ترخیص موفق</div>
-                  <div className="font-bold text-sm">خودروی لوکس • گمرک ارس</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-premium-black/40 via-transparent to-transparent" />
+
+              <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-background/90 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-bold border border-border">
+                <Anchor className="size-3 text-brand-blue" />
+                ترخیص و ترانزیت • ارس
+              </div>
+
+              <div className="absolute bottom-4 right-4 left-4 bg-background/90 backdrop-blur-xl rounded-2xl p-4 flex items-center justify-between border border-border">
+                <div className="flex items-center gap-3">
+                  <div className="size-10 rounded-xl bg-brand-blue/10 text-brand-blue grid place-items-center">
+                    <Container className="size-5" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[11px] text-muted-foreground">پرونده‌های موفق</div>
+                    <div className="font-extrabold text-sm">+۵۰۰ ترخیص و واردات</div>
+                  </div>
                 </div>
-                <div className="text-xs bg-emerald-500/10 text-emerald-600 px-3 py-1.5 rounded-full font-bold">ترخیص شد</div>
+                <div className="text-[10px] bg-emerald-500/10 text-emerald-600 px-2.5 py-1 rounded-full font-bold">فعال</div>
               </div>
             </div>
           </div>
