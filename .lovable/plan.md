@@ -1,51 +1,61 @@
+## Hero Refinement Plan — ارس‌ترید
 
-# طراحی مجدد صفحه اصلی ارس‌ترید
+Scope: Only the `Hero` component in `src/routes/index.tsx` (lines ~234–297). No other section, route, or backend touched. Tokens and palette unchanged.
 
-فقط `src/routes/index.tsx` بازنویسی می‌شود. روتینگ، احراز هویت، دیتابیس، و سایر صفحات (auth, dashboard) دست‌نخورده باقی می‌مانند. تمام محتوا فارسی و RTL، با استفاده از توکن‌های دیزاین موجود (`brand-blue`, `brand-gold`, `premium-black`, `surface`) و تصاویر خودروی موجود در `src/assets`.
+### 1. Mobile order fix (critical)
+Reorder content stack so users read business message before seeing the image:
+1. Status badge (منطقه آزاد ارس • فعال)
+2. Headline (3-line staggered reveal)
+3. Subtitle
+4. Primary CTA — درخواست مشاوره ترخیص خودرو
+5. Secondary CTA — مشاهده خودروها
+6. Hero image (last, full width, rounded)
 
-## ساختار جدید صفحه (به ترتیب)
+Implementation: drop the current `order-1 / order-2` inversion so on mobile text comes first naturally; on `lg:` use grid with text right-column, image left-column.
 
-1. **Navbar** — حفظ نسخه فعلی (شیشه‌ای، sticky) + لینک به بخش‌های جدید
-2. **Hero**
-   - تیتر اصلی: «واردات و ترخیص تخصصی خودرو از منطقه آزاد ارس»
-   - زیرتیتر کوتاه درباره ترخیص و تامین بین‌المللی
-   - دو CTA: «درخواست مشاوره» (پررنگ، اسکرول به فرم) و «مشاهده خودروها» (ثانویه)
-   - تصویر hero فعلی + کارت شناور (وضعیت گمرک/ترخیص اخیر)
-3. **Trust Strip** — چهار آیتم: بیش از ۵ سال تجربه، فرآیند شفاف، شبکه تأمین بین‌المللی، پشتیبانی تخصصی (آیکون + عنوان + توضیح کوتاه)
-4. **Main Services** — سه کارت بزرگ:
-   - ترخیص خودرو
-   - واردات خودرو
-   - واردات و ترخیص کالا (هرکدام آیکون، توضیح، لینک «اطلاعات بیشتر»)
-5. **Featured Vehicles** — سه تب/گروه افقی:
-   - خودروهای آماده تحویل
-   - خودروهای در حال واردات
-   - پیش‌فروش خودرو
-   - هر گروه ۲–۳ کارت خودرو از تصاویر موجود (لندکروزر، لکسوس، رنج‌روور، کاین، G-Class، X7) با badge وضعیت
-6. **Work Process** — تایم‌لاین ۶ مرحله‌ای:
-   ثبت درخواست → مشاوره → استعلام هزینه → عقد قرارداد → واردات/ترخیص → تحویل
-   (به جای ۴ مرحله فعلی)
-7. **Recent Activities** — فید فعالیت حرفه‌ای (بدون نام مشتری):
-   مثل «ترخیص یک دستگاه لندکروزر VXR از گمرک ارس — ۲ روز پیش»، «ورود محموله ۳ دستگاه لکسوس به انبار»، با آیکون و تایم‌استمپ
-8. **Why ArasTrade** — چهار/شش مزیت کلیدی با آیکون (شفافیت قیمت، تیم حقوقی، بیمه باربری، ترخیص سریع و...)
-9. **Quick Inquiry Form** — فرم کوتاه: نام، شماره تماس، نوع درخواست (select: ترخیص خودرو/واردات خودرو/کالا)، توضیحات. دکمه «ارسال درخواست». فعلاً client-side با toast (آماده اتصال آینده به Supabase)
-10. **FAQ** — Accordion با ۵–۶ سؤال رایج (مدارک ترخیص، مدت‌زمان، هزینه‌ها، خودروهای مجاز، گارانتی و...)
-11. **Final CTA** — بنر تیره با تیتر بزرگ، دو دکمه (تماس / واتس‌اپ)
-12. **Footer + BottomNav** — حفظ نسخه فعلی
+Center-align text on mobile (`text-center`), right-align from `lg:` up.
 
-## جزئیات فنی
+### 2. Desktop composition (unified premium block)
+- Replace 6/6 split with an art-directed asymmetric grid: `lg:grid-cols-12` → text `col-span-7`, image `col-span-5`, `gap-14`, `items-stretch`.
+- Image fills column height (`h-full`, `aspect-auto lg:aspect-[4/5]`) so both columns share the same vertical rhythm.
+- Add a soft connecting band: subtle horizontal gradient line / faint grid behind both columns plus a small "credential strip" (e.g. سال تأسیس • گمرک ارس • مجوز رسمی) sitting under the CTAs to bridge text↔image visually.
+- Replace the existing "آخرین ترخیص موفق" floating card with a more corporate logistics overlay: container/anchor icon + label "ترخیص و ترانزیت • منطقه آزاد ارس" + a small KPI chip ("+۵۰۰ پرونده موفق"). Moves feel away from showroom toward trade/logistics.
+- Tighten section padding: `pt-16 lg:pt-24 pb-20 lg:pb-28`, increase max-width breathing with `max-w-7xl` retained but add `lg:px-10`.
+- Reduce decorative blur blobs (keep one subtle blue blob top-left, drop gold blob) so the hero feels corporate not flashy.
 
-- فقط `src/routes/index.tsx` ویرایش می‌شود. هیچ فایل دیگری ایجاد یا حذف نمی‌شود.
-- داده‌های هر بخش به صورت آرایه‌های `const` در بالای فایل تعریف می‌شوند تا آینده‌ به CMS/Supabase وصل شوند (services, vehicles, activities, faqs, processSteps).
-- استفاده از کامپوننت‌های موجود shadcn: `Accordion` برای FAQ، `Input`/`Textarea`/`Button` برای فرم، `Tabs` برای گروه‌بندی خودروها.
-- آیکون‌ها از `lucide-react` (Car, ShieldCheck, Globe, Headphones, FileText, etc.)
-- استایل: همان توکن‌های فعلی (`bg-surface`, `text-brand-blue`, `bg-premium-black`, rounded-[32px/40px]، blur effects)، Vazirmatn، dir="rtl"
-- موبایل ریسپانسیو با همان الگوی فعلی (carousel افقی روی موبایل، grid روی دسکتاپ)
-- SEO: به‌روزرسانی `head()` با عنوان و توضیح متمرکز بر «واردات و ترخیص خودرو از منطقه آزاد ارس»
-- BottomNav موبایل و Navbar فعلی حفظ می‌شوند؛ فقط anchorهای داخلی به بخش‌های جدید به‌روز می‌شوند.
+### 3. Typography refinement
+- Headline becomes a 3-line staggered reveal (Vazirmatn, keep semantic H1):
+  - Line 1: «واردات و ترخیص تخصصی»
+  - Line 2: «خودرو و کالای تجاری»
+  - Line 3 (accent, brand-blue): «از منطقه آزاد ارس»
+- Sizes: `text-[2rem] sm:text-[2.5rem] lg:text-[3.25rem]`, `leading-[1.25]`, `tracking-tight`, weight `font-bold` (drop `font-extrabold` on accent line to keep refined feel).
+- Subtitle: `text-[15px] lg:text-[17px] leading-[2] text-muted-foreground max-w-[34rem]`, slightly looser letter-spacing on the accent line only.
+- Small uppercase eyebrow above headline (latin): `ARAS TRADE — INTERNATIONAL TRADE & CUSTOMS` in `text-[11px] tracking-[0.25em] text-muted-foreground` to anchor corporate tone (latin string only; rest stays Persian).
 
-## آنچه تغییر نمی‌کند
+### 4. CTA hierarchy
+- Primary: filled `bg-premium-black`, `h-14`, `rounded-2xl`, stronger shadow (`shadow-[0_10px_30px_-10px_oklch(0.18_0.005_270/0.45)]`), arrow icon, slight hover lift.
+- Secondary: ghost/outline, same height, `text-foreground/80`, no shadow; visually clearly subordinate.
+- Add a thin trust line under CTAs: shield icon + «مشاوره رایگان • بدون تعهد» in `text-xs text-muted-foreground`.
 
-- `src/routes/auth.tsx`, `src/routes/dashboard.tsx`, `__root.tsx`
-- جداول Supabase، RLS، احراز هویت
-- `styles.css` و توکن‌های رنگ
-- مسیر `/auth` و دکمه‌های ورود/ثبت‌نام در navbar
+### 5. Subtle premium animation
+Use existing Tailwind keyframes from `src/styles.css` (`animate-fade-in`) plus inline `style={{ animationDelay }}` for stagger. No new deps, no bounce/rotate.
+
+Reveal sequence (all `animate-fade-in`, 600ms ease-out):
+- Badge: delay 0ms
+- Headline line 1: 120ms
+- Headline line 2: 240ms
+- Headline line 3: 360ms
+- Subtitle: 480ms
+- CTAs: 600ms
+- Trust microline: 720ms
+- Image block: 200ms (fade-in only, no transform)
+
+Each element gets `opacity-0 animate-fade-in` with `animationFillMode: 'forwards'`.
+
+### 6. What does NOT change
+- All other sections (TrustStrip, MainServices, FeaturedVehicles, WorkProcess, RecentActivities, WhyUs, InquiryForm, FAQ, FinalCTA, Footer, BottomNav, Navbar).
+- Routing, auth, dashboard, Supabase, styles.css tokens, color palette, fonts.
+- Data arrays at top of file.
+
+### Files touched
+- `src/routes/index.tsx` — only the `Hero` function (and unused icon imports adjusted if needed).
