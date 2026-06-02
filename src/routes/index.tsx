@@ -234,28 +234,7 @@ function Navbar() {
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Premium dark ambience inspired by international trade / port lighting */}
-      <div className="absolute -top-32 -left-32 size-[520px] rounded-full bg-brand-blue/20 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 -right-24 size-[380px] rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
-      {/* Diagonal light beam */}
-      <div
-        className="absolute -top-10 left-[12%] w-[2px] h-[120%] bg-gradient-to-b from-brand-blue/60 via-brand-blue/10 to-transparent blur-[2px] pointer-events-none rotate-[18deg] origin-top"
-        aria-hidden
-      />
-      <div
-        className="absolute -top-10 left-[18%] w-[1px] h-[90%] bg-gradient-to-b from-brand-blue/40 to-transparent pointer-events-none rotate-[18deg] origin-top"
-        aria-hidden
-      />
-      {/* Subtle grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-        }}
-        aria-hidden
-      />
+      <div className="absolute -top-24 -left-24 size-[420px] rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-12 pb-16 lg:pt-24 lg:pb-28">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
