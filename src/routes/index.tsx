@@ -801,27 +801,29 @@ function FinalCTA() {
                 <span className="text-[11px] tracking-[0.25em] text-white/70 font-medium">ARAS TRADE</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.35] text-white mb-5">
-                خودروی رویایی شما،
+                مسیر واردات و ترخیص،
                 <br />
-                یک تماس <span className="text-brand-blue">فاصله</span> دارد.
+                <span className="text-brand-blue">شفاف</span> و قابل پیگیری
               </h2>
               <p className="text-white/65 text-sm sm:text-base leading-[2] max-w-lg mx-auto lg:mx-0 lg:ml-auto lg:mr-0 mb-8">
-                همین حالا با ارس‌ترید تماس بگیرید و مشاوره رایگان واردات یا ترخیص خود را دریافت کنید.
+                {finalCta.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center">
                 <a
-                  href="https://wa.me/989000000000"
+                  href={`tel:${contact.phone}`}
                   className="h-14 px-7 bg-brand-blue text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-[0_14px_36px_-12px_oklch(0.6_0.2_255/0.7)] hover:brightness-110 transition active:scale-[0.98]"
-                >
-                  <MessageCircle className="size-5" />
-                  واتساپ
-                </a>
-                <a
-                  href="tel:+982188887777"
-                  className="h-14 px-7 bg-white/[0.03] border border-white/15 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/[0.07] transition active:scale-[0.98]"
                 >
                   <Phone className="size-5" />
                   تماس مستقیم
+                </a>
+                <a
+                  href={`https://wa.me/${contact.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-14 px-7 bg-white/[0.03] border border-white/15 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/[0.07] transition active:scale-[0.98]"
+                >
+                  <MessageCircle className="size-5" />
+                  ارتباط در واتساپ
                 </a>
               </div>
             </div>
@@ -866,11 +868,7 @@ function FinalCTA() {
 
           {/* Feature strip */}
           <div className="relative mt-12 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { icon: ShieldCheck, title: "ضمانت اصالت", desc: "۱۰۰٪ تضمینی" },
-              { icon: Globe2, title: "واردات تخصصی", desc: "از اروپا، امارات و چین" },
-              { icon: Gauge, title: "ترخیص سریع", desc: "در کمترین زمان ممکن" },
-            ].map((item) => (
+            {finalCta.features.map((item) => (
               <div key={item.title} className="flex items-center gap-3 justify-center sm:justify-start">
                 <div className="size-11 shrink-0 rounded-xl bg-white/[0.04] border border-white/10 grid place-items-center text-brand-blue">
                   <item.icon className="size-5" />
