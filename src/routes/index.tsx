@@ -54,6 +54,7 @@ import {
   Anchor,
   Container,
   Sparkles,
+  Gauge,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
