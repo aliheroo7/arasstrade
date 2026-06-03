@@ -667,14 +667,14 @@ function InquiryForm() {
             فرم را تکمیل کنید؛ کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرند.
           </p>
           <div className="space-y-3">
-            <a href="tel:+982188887777" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
+            <a href={`tel:${contact.phone}`} className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
               <Phone className="size-5 text-brand-blue" />
               <div>
                 <div className="text-[11px] text-muted-foreground">تماس مستقیم</div>
-                <div className="font-bold text-sm">۰۲۱-۸۸۸۸۷۷۷۷</div>
+                <div className="font-bold text-sm" dir="ltr">{contact.phone}</div>
               </div>
             </a>
-            <a href="https://wa.me/989000000000" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
+            <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
               <MessageCircle className="size-5 text-emerald-600" />
               <div>
                 <div className="text-[11px] text-muted-foreground">واتس‌اپ</div>
@@ -703,10 +703,9 @@ function InquiryForm() {
                 <SelectValue placeholder="انتخاب خدمت موردنظر" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="car-clearance">ترخیص خودرو</SelectItem>
-                <SelectItem value="car-import">واردات خودرو</SelectItem>
-                <SelectItem value="goods">واردات و ترخیص کالا</SelectItem>
-                <SelectItem value="consult">مشاوره عمومی</SelectItem>
+                {requestTypes.map((r) => (
+                  <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
