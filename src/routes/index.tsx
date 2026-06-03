@@ -483,9 +483,15 @@ function VehicleCard({ v }: { v: { name: string; year: string; origin: string; i
       <div className="p-5">
         <h3 className="font-bold text-base mb-1">{v.name}</h3>
         <div className="text-muted-foreground text-xs mb-4">مدل {v.year}</div>
-        <a href="#inquiry" className="w-full h-10 bg-surface hover:bg-premium-black hover:text-white rounded-full text-xs font-bold flex items-center justify-center transition-colors">
-          استعلام قیمت
-        </a>
+        <div className="flex flex-col gap-2">
+          <a href="#inquiry" className="w-full h-10 bg-surface hover:bg-premium-black hover:text-white rounded-full text-xs font-bold flex items-center justify-center transition-colors">
+            استعلام قیمت
+          </a>
+          <a href="#inquiry" className="w-full h-10 bg-premium-black text-white rounded-full text-xs font-bold flex items-center justify-center gap-1.5 hover:brightness-110 transition">
+            درخواست مشاوره
+            <ArrowLeft className="size-3.5" />
+          </a>
+        </div>
       </div>
     </article>
   );
