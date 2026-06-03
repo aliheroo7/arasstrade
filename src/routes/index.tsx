@@ -375,8 +375,8 @@ function Hero() {
                     <Container className="size-5" />
                   </div>
                   <div className="text-right">
-                    <div className="text-[11px] text-muted-foreground">پرونده‌های موفق</div>
-                    <div className="font-extrabold text-sm">+۵۰۰ ترخیص و واردات</div>
+                    <div className="text-[11px] text-muted-foreground">تجربه عملی</div>
+                    <div className="font-extrabold text-sm">بیش از ۱۸ سال در حوزه ترخیص</div>
                   </div>
                 </div>
                 <div className="text-[10px] bg-emerald-500/10 text-emerald-600 px-2.5 py-1 rounded-full font-bold">فعال</div>
