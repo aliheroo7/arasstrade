@@ -406,6 +406,32 @@ function TrustStrip() {
   );
 }
 
+function AboutExperience() {
+  return (
+    <section className="px-6 py-10">
+      <div className="relative overflow-hidden rounded-[32px] border border-border bg-surface p-8 md:p-12">
+        <div className="absolute -top-16 -left-16 size-64 rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
+        <div className="relative grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-center">
+          <div className="size-20 md:size-24 rounded-3xl bg-brand-blue/10 text-brand-blue grid place-items-center shrink-0">
+            <Award className="size-10" />
+          </div>
+          <div>
+            <div className="text-brand-blue text-xs font-bold mb-2">درباره ارس‌ترید</div>
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
+              ۱۸ سال تجربه در واردات و ترخیص
+            </h2>
+            <p className="text-sm md:text-[15px] text-muted-foreground leading-[2]">
+              ارس‌ترید با نام رسمی «{contact.legalName}»، با بیش از ۱۸ سال تجربه عملی در حوزه واردات،
+              ترخیص خودرو و کالای تجاری در منطقه آزاد ارس، فرآیند واردات و ترخیص را با تمرکز بر
+              شفافیت، پیگیری مرحله‌ای و مشاوره تخصصی مدیریت می‌کند.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function MainServices() {
   return (
     <section id="services" className="px-6 py-12">
