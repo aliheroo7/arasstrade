@@ -226,6 +226,7 @@ function Index() {
       <Navbar />
       <Hero />
       <TrustStrip />
+      <AboutExperience />
       <MainServices />
       <FeaturedVehicles />
       <WorkProcess />
