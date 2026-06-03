@@ -79,8 +79,40 @@ export const Route = createFileRoute("/")({
 
 // ---------- DATA (CMS-ready) ----------
 
+const contact = {
+  phone: "09142308507",
+  phoneIntl: "+989142308507",
+  whatsapp: "989142308507",
+  email: "ArassTrade@gmail.com",
+  instagram: "ArassTrade",
+  telegram: "ArassTrade",
+  address: "جلفا، دومین ورودی منطقه آزاد ارس، دومین کوچه سمت چپ، پلاک ۳",
+  brand: "ارس‌ترید",
+  legalName: "ارس تجارت ارس",
+};
+
+const finalCta = {
+  headline: "مسیر واردات و ترخیص، شفاف و قابل پیگیری",
+  subtitle:
+    "برای بررسی شرایط واردات خودرو، ترخیص خودرو و کالای تجاری، با کارشناسان ارس‌ترید در ارتباط باشید.",
+  features: [
+    { icon: Eye, title: "شفافیت در فرآیند", desc: "گزارش مرحله‌ای از همه اقدامات" },
+    { icon: Headphones, title: "مشاوره تخصصی", desc: "تیم گمرکی و حقوقی پاسخگو" },
+    { icon: Activity, title: "پیگیری تا ترخیص نهایی", desc: "از ثبت درخواست تا تحویل" },
+  ],
+};
+
+const requestTypes = [
+  { value: "car-clearance", label: "ترخیص خودرو" },
+  { value: "car-import", label: "واردات خودرو" },
+  { value: "goods-import", label: "واردات کالا" },
+  { value: "goods-clearance", label: "ترخیص کالا" },
+  { value: "preorder", label: "پیش‌فروش خودرو" },
+  { value: "ready", label: "خرید خودرو آماده" },
+];
+
 const trustItems = [
-  { icon: Award, title: "بیش از ۵ سال تجربه", desc: "سابقه‌ای موفق در واردات و ترخیص" },
+  { icon: Award, title: "بیش از ۱۸ سال تجربه عملی", desc: "در واردات و ترخیص خودرو و کالا" },
   { icon: Eye, title: "فرآیند شفاف", desc: "گزارش مرحله‌ای از تمام مراحل" },
   { icon: Globe2, title: "شبکه تأمین بین‌المللی", desc: "همکاران معتبر در امارات، آلمان، ژاپن" },
   { icon: Headphones, title: "پشتیبانی تخصصی", desc: "تیم حقوقی و گمرکی پاسخگو" },
@@ -109,19 +141,20 @@ const services = [
 
 const vehicleGroups = {
   ready: [
-    { name: "تویوتا لندکروزر VXR", year: "۲۰۲۰", origin: "امارات", img: landCruiser, badge: "آماده تحویل" },
-    { name: "پورشه کاین توربو", year: "۲۰۱۹", origin: "آلمان", img: cayenne, badge: "آماده تحویل" },
-    { name: "BMW X7 xDrive40i", year: "۲۰۲۱", origin: "آلمان", img: bmwx7, badge: "آماده تحویل" },
+    { name: "Mercedes-Benz C200", year: "۲۰۲۲", origin: "آلمان", img: rangeRover, badge: "آماده تحویل" },
+    { name: "BMW X5", year: "۲۰۲۱", origin: "آلمان", img: bmwx7, badge: "آماده تحویل" },
+    { name: "Lexus RX350", year: "۲۰۲۲", origin: "ژاپن", img: lexus, badge: "آماده تحویل" },
   ],
   shipping: [
-    { name: "لکسوس LX 570", year: "۲۰۲۰", origin: "ژاپن", img: lexus, badge: "در حال حمل" },
-    { name: "رنج‌روور وگ", year: "۲۰۱۹", origin: "انگلستان", img: rangeRover, badge: "در حال حمل" },
-    { name: "مرسدس بنز G500", year: "۲۰۲۲", origin: "آلمان", img: gclass, badge: "در راه" },
+    { name: "BMW 530i", year: "۲۰۲۳", origin: "آلمان", img: rangeRover, badge: "در حال واردات" },
+    { name: "Mercedes-Benz E-Class", year: "۲۰۲۳", origin: "آلمان", img: gclass, badge: "در حال واردات" },
+    { name: "Toyota Land Cruiser", year: "۲۰۲۳", origin: "امارات", img: landCruiser, badge: "در حال واردات" },
   ],
   preorder: [
-    { name: "لکسوس RX 500h", year: "۲۰۲۴", origin: "ژاپن", img: lexus, badge: "پیش‌فروش" },
-    { name: "لندکروزر ۳۰۰", year: "۲۰۲۴", origin: "امارات", img: landCruiser, badge: "پیش‌فروش" },
-    { name: "مرسدس بنز GLE", year: "۲۰۲۴", origin: "آلمان", img: rangeRover, badge: "پیش‌فروش" },
+    { name: "BMW X7", year: "۲۰۲۴", origin: "آلمان", img: bmwx7, badge: "پیش‌فروش" },
+    { name: "Mercedes-Benz G-Class", year: "۲۰۲۴", origin: "آلمان", img: gclass, badge: "پیش‌فروش" },
+    { name: "Porsche Cayenne", year: "۲۰۲۴", origin: "آلمان", img: cayenne, badge: "پیش‌فروش" },
+    { name: "Lexus LX600", year: "۲۰۲۴", origin: "ژاپن", img: lexus, badge: "پیش‌فروش" },
   ],
 };
 
@@ -135,11 +168,11 @@ const processSteps = [
 ];
 
 const activities = [
-  { icon: CheckCircle2, tone: "green", text: "ترخیص موفق یک دستگاه خودروی لوکس از گمرک ارس", time: "۲ ساعت پیش" },
-  { icon: Anchor, tone: "blue", text: "ورود محموله جدید خودرو به انبار منطقه آزاد ارس", time: "دیروز" },
-  { icon: FileSignature, tone: "gold", text: "عقد قرارداد جدید واردات خودروی لوکس", time: "۲ روز پیش" },
-  { icon: Truck, tone: "green", text: "تحویل خودروی وارداتی به یکی از مشتریان محترم", time: "۳ روز پیش" },
-  { icon: Package, tone: "blue", text: "ترخیص محموله کالای تجاری از گمرک ارس", time: "هفته گذشته" },
+  { icon: ClipboardList, tone: "blue", text: "بررسی پرونده ترخیص یک دستگاه SUV وارداتی", time: "اخیراً" },
+  { icon: Anchor, tone: "green", text: "ثبت درخواست واردات خودرو از مسیر امارات", time: "اخیراً" },
+  { icon: CheckCircle2, tone: "gold", text: "تکمیل فرآیند مشاوره ترخیص کالای تجاری", time: "اخیراً" },
+  { icon: FileSignature, tone: "blue", text: "آماده‌سازی مدارک ترخیص خودرو در منطقه آزاد ارس", time: "اخیراً" },
+  { icon: Truck, tone: "green", text: "پیگیری وضعیت واردات خودرو در مرحله حمل", time: "اخیراً" },
 ];
 
 const toneClasses: Record<string, string> = {
@@ -149,38 +182,38 @@ const toneClasses: Record<string, string> = {
 };
 
 const whyItems = [
-  { icon: ShieldCheck, title: "قانونی و رسمی", desc: "تمام فرآیندها مطابق قوانین گمرک" },
+  { icon: ShieldCheck, title: "مطابق با قوانین گمرک", desc: "اجرای فرآیندها در چارچوب مقررات" },
   { icon: Eye, title: "شفافیت قیمت", desc: "هیچ هزینه‌ی پنهانی وجود ندارد" },
   { icon: Globe2, title: "تأمین جهانی", desc: "شبکه‌ای از تأمین‌کنندگان معتبر" },
   { icon: Activity, title: "گزارش مرحله‌ای", desc: "از خرید تا تحویل در دسترس شماست" },
   { icon: Headphones, title: "مشاوره رایگان", desc: "تیم متخصص پاسخگوی شما" },
-  { icon: Award, title: "تضمین کیفیت", desc: "بازرسی فنی پیش از تحویل" },
+  { icon: Award, title: "۱۸ سال تجربه عملی", desc: "تکیه بر سابقه طولانی در حوزه ترخیص" },
 ];
 
 const faqs = [
   {
-    q: "روند ترخیص خودرو از منطقه آزاد ارس چقدر طول می‌کشد؟",
-    a: "به‌طور میانگین بین ۷ تا ۱۴ روز کاری، بسته به نوع خودرو و مدارک ارائه‌شده، فرآیند ترخیص کامل می‌شود.",
+    q: "ترخیص خودرو از منطقه آزاد ارس چقدر زمان می‌برد؟",
+    a: "زمان ترخیص به نوع خودرو، کامل بودن مدارک و شرایط روز گمرک بستگی دارد. در فرآیند معمول، ترخیص ظرف چند روز کاری انجام می‌شود و در طول مسیر گزارش مرحله‌ای ارائه می‌گردد.",
   },
   {
-    q: "چه خودروهایی قابل واردات از طریق منطقه آزاد ارس هستند؟",
-    a: "خودروهای مدل ۲۰۱۰ به بالا با رعایت ضوابط روز گمرک و سازمان ملی استاندارد قابل واردات و ترخیص هستند.",
+    q: "اگر خودرو را خودمان از خارج تهیه کرده باشیم، ارس‌ترید ترخیص آن را انجام می‌دهد؟",
+    a: "بله، در صورت تأمین خودرو توسط شما، تیم ارس‌ترید فرآیند ترخیص را از منطقه آزاد ارس به‌صورت تخصصی پیگیری می‌کند.",
   },
   {
-    q: "هزینه‌های ترخیص چگونه محاسبه می‌شود؟",
-    a: "بر اساس ارزش گمرکی، حقوق ورودی، مالیات و عوارض رسمی محاسبه و در قالب پیش‌فاکتور شفاف به مشتری ارائه می‌شود.",
+    q: "امکان واردات خودرو از امارات یا چین وجود دارد؟",
+    a: "بله، با توجه به شبکه تأمین بین‌المللی، واردات خودرو از مسیرهایی مانند امارات و چین قابل بررسی است و شرایط هر پرونده در مشاوره اولیه به‌صورت اختصاصی اعلام می‌شود.",
   },
   {
-    q: "آیا امکان پیش‌فروش و رزرو خودرو وجود دارد؟",
-    a: "بله، با عقد قرارداد و پرداخت بیعانه، خودروی موردنظر شما از مبدأ تأمین و در زمان توافقی تحویل می‌گردد.",
+    q: "هزینه واردات و ترخیص خودرو چگونه محاسبه می‌شود؟",
+    a: "هزینه‌ها بر اساس ارزش گمرکی، حقوق ورودی، مالیات، عوارض رسمی و هزینه‌های جانبی محاسبه و به‌صورت پیش‌فاکتور شفاف ارائه می‌شود.",
   },
   {
-    q: "آیا واردات کالای تجاری نیز انجام می‌دهید؟",
-    a: "بله، ارس‌ترید علاوه بر خودرو، واردات و ترخیص انواع کالای تجاری و صنعتی را نیز با همان فرآیند تخصصی انجام می‌دهد.",
+    q: "برای شروع فرآیند ترخیص چه مدارکی لازم است؟",
+    a: "مدارک متناسب با نوع خودرو یا کالا متفاوت است. در مشاوره اولیه، فهرست دقیق مدارک شامل اسناد مالکیت، فاکتور خرید، اسناد حمل و مدارک هویتی به شما اعلام می‌شود.",
   },
   {
-    q: "نحوه پشتیبانی پس از تحویل چگونه است؟",
-    a: "تیم پشتیبانی ما در طول فرآیند و پس از تحویل، پاسخگوی سؤالات و راهنمای مراحل قانونی پس از تحویل خواهد بود.",
+    q: "آیا واردات و ترخیص کالای تجاری هم انجام می‌دهید؟",
+    a: "بله، علاوه بر خودرو، واردات و ترخیص انواع کالای تجاری و صنعتی نیز با همان فرآیند تخصصی و گزارش مرحله‌ای انجام می‌شود.",
   },
 ];
 
@@ -193,6 +226,7 @@ function Index() {
       <Navbar />
       <Hero />
       <TrustStrip />
+      <AboutExperience />
       <MainServices />
       <FeaturedVehicles />
       <WorkProcess />
@@ -342,8 +376,8 @@ function Hero() {
                     <Container className="size-5" />
                   </div>
                   <div className="text-right">
-                    <div className="text-[11px] text-muted-foreground">پرونده‌های موفق</div>
-                    <div className="font-extrabold text-sm">+۵۰۰ ترخیص و واردات</div>
+                    <div className="text-[11px] text-muted-foreground">تجربه عملی</div>
+                    <div className="font-extrabold text-sm">بیش از ۱۸ سال در حوزه ترخیص</div>
                   </div>
                 </div>
                 <div className="text-[10px] bg-emerald-500/10 text-emerald-600 px-2.5 py-1 rounded-full font-bold">فعال</div>
@@ -367,6 +401,32 @@ function TrustStrip() {
             <div className="text-[11px] text-muted-foreground leading-relaxed">{it.desc}</div>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function AboutExperience() {
+  return (
+    <section className="px-6 py-10">
+      <div className="relative overflow-hidden rounded-[32px] border border-border bg-surface p-8 md:p-12">
+        <div className="absolute -top-16 -left-16 size-64 rounded-full bg-brand-blue/10 blur-3xl pointer-events-none" />
+        <div className="relative grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-center">
+          <div className="size-20 md:size-24 rounded-3xl bg-brand-blue/10 text-brand-blue grid place-items-center shrink-0">
+            <Award className="size-10" />
+          </div>
+          <div>
+            <div className="text-brand-blue text-xs font-bold mb-2">درباره ارس‌ترید</div>
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
+              ۱۸ سال تجربه در واردات و ترخیص
+            </h2>
+            <p className="text-sm md:text-[15px] text-muted-foreground leading-[2]">
+              ارس‌ترید با نام رسمی «{contact.legalName}»، با بیش از ۱۸ سال تجربه عملی در حوزه واردات،
+              ترخیص خودرو و کالای تجاری در منطقه آزاد ارس، فرآیند واردات و ترخیص را با تمرکز بر
+              شفافیت، پیگیری مرحله‌ای و مشاوره تخصصی مدیریت می‌کند.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -423,9 +483,15 @@ function VehicleCard({ v }: { v: { name: string; year: string; origin: string; i
       <div className="p-5">
         <h3 className="font-bold text-base mb-1">{v.name}</h3>
         <div className="text-muted-foreground text-xs mb-4">مدل {v.year}</div>
-        <a href="#inquiry" className="w-full h-10 bg-surface hover:bg-premium-black hover:text-white rounded-full text-xs font-bold flex items-center justify-center transition-colors">
-          استعلام قیمت
-        </a>
+        <div className="flex flex-col gap-2">
+          <a href="#inquiry" className="w-full h-10 bg-surface hover:bg-premium-black hover:text-white rounded-full text-xs font-bold flex items-center justify-center transition-colors">
+            استعلام قیمت
+          </a>
+          <a href="#inquiry" className="w-full h-10 bg-premium-black text-white rounded-full text-xs font-bold flex items-center justify-center gap-1.5 hover:brightness-110 transition">
+            درخواست مشاوره
+            <ArrowLeft className="size-3.5" />
+          </a>
+        </div>
       </div>
     </article>
   );
@@ -607,14 +673,14 @@ function InquiryForm() {
             فرم را تکمیل کنید؛ کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرند.
           </p>
           <div className="space-y-3">
-            <a href="tel:+982188887777" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
+            <a href={`tel:${contact.phone}`} className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
               <Phone className="size-5 text-brand-blue" />
               <div>
                 <div className="text-[11px] text-muted-foreground">تماس مستقیم</div>
-                <div className="font-bold text-sm">۰۲۱-۸۸۸۸۷۷۷۷</div>
+                <div className="font-bold text-sm" dir="ltr">{contact.phone}</div>
               </div>
             </a>
-            <a href="https://wa.me/989000000000" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
+            <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-surface border border-border rounded-2xl p-4">
               <MessageCircle className="size-5 text-emerald-600" />
               <div>
                 <div className="text-[11px] text-muted-foreground">واتس‌اپ</div>
@@ -643,10 +709,9 @@ function InquiryForm() {
                 <SelectValue placeholder="انتخاب خدمت موردنظر" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="car-clearance">ترخیص خودرو</SelectItem>
-                <SelectItem value="car-import">واردات خودرو</SelectItem>
-                <SelectItem value="goods">واردات و ترخیص کالا</SelectItem>
-                <SelectItem value="consult">مشاوره عمومی</SelectItem>
+                {requestTypes.map((r) => (
+                  <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -742,27 +807,29 @@ function FinalCTA() {
                 <span className="text-[11px] tracking-[0.25em] text-white/70 font-medium">ARAS TRADE</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.35] text-white mb-5">
-                خودروی رویایی شما،
+                مسیر واردات و ترخیص،
                 <br />
-                یک تماس <span className="text-brand-blue">فاصله</span> دارد.
+                <span className="text-brand-blue">شفاف</span> و قابل پیگیری
               </h2>
               <p className="text-white/65 text-sm sm:text-base leading-[2] max-w-lg mx-auto lg:mx-0 lg:ml-auto lg:mr-0 mb-8">
-                همین حالا با ارس‌ترید تماس بگیرید و مشاوره رایگان واردات یا ترخیص خود را دریافت کنید.
+                {finalCta.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center">
                 <a
-                  href="https://wa.me/989000000000"
+                  href={`tel:${contact.phone}`}
                   className="h-14 px-7 bg-brand-blue text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-[0_14px_36px_-12px_oklch(0.6_0.2_255/0.7)] hover:brightness-110 transition active:scale-[0.98]"
-                >
-                  <MessageCircle className="size-5" />
-                  واتساپ
-                </a>
-                <a
-                  href="tel:+982188887777"
-                  className="h-14 px-7 bg-white/[0.03] border border-white/15 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/[0.07] transition active:scale-[0.98]"
                 >
                   <Phone className="size-5" />
                   تماس مستقیم
+                </a>
+                <a
+                  href={`https://wa.me/${contact.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-14 px-7 bg-white/[0.03] border border-white/15 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/[0.07] transition active:scale-[0.98]"
+                >
+                  <MessageCircle className="size-5" />
+                  ارتباط در واتساپ
                 </a>
               </div>
             </div>
@@ -807,11 +874,7 @@ function FinalCTA() {
 
           {/* Feature strip */}
           <div className="relative mt-12 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { icon: ShieldCheck, title: "ضمانت اصالت", desc: "۱۰۰٪ تضمینی" },
-              { icon: Globe2, title: "واردات تخصصی", desc: "از اروپا، امارات و چین" },
-              { icon: Gauge, title: "ترخیص سریع", desc: "در کمترین زمان ممکن" },
-            ].map((item) => (
+            {finalCta.features.map((item) => (
               <div key={item.title} className="flex items-center gap-3 justify-center sm:justify-start">
                 <div className="size-11 shrink-0 rounded-xl bg-white/[0.04] border border-white/10 grid place-items-center text-brand-blue">
                   <item.icon className="size-5" />
@@ -853,15 +916,37 @@ function Footer() {
         <div>
           <div className="font-bold text-sm mb-3">تماس</div>
           <ul className="space-y-2 text-xs text-muted-foreground">
-            <li className="flex items-center gap-2"><Phone className="size-3.5" /> ۰۲۱-۸۸۸۸۷۷۷۷</li>
-            <li className="flex items-center gap-2"><Send className="size-3.5" /> @arastrade</li>
-            <li className="flex items-center gap-2"><Instagram className="size-3.5" /> @arastrade</li>
-            <li className="flex items-start gap-2"><MapPin className="size-3.5 mt-0.5 shrink-0" /> منطقه آزاد ارس، جلفا</li>
+            <li>
+              <a href={`tel:${contact.phone}`} className="flex items-center gap-2 hover:text-foreground">
+                <Phone className="size-3.5" /> <span dir="ltr">{contact.phone}</span>
+              </a>
+            </li>
+            <li>
+              <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <MessageCircle className="size-3.5" /> واتساپ
+              </a>
+            </li>
+            <li>
+              <a href={`https://t.me/${contact.telegram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <Send className="size-3.5" /> @{contact.telegram}
+              </a>
+            </li>
+            <li>
+              <a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <Instagram className="size-3.5" /> @{contact.instagram}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${contact.email}`} className="flex items-center gap-2 hover:text-foreground">
+                <FileCheck className="size-3.5" /> <span dir="ltr">{contact.email}</span>
+              </a>
+            </li>
+            <li className="flex items-start gap-2"><MapPin className="size-3.5 mt-0.5 shrink-0" /> {contact.address}</li>
           </ul>
         </div>
       </div>
       <div className="flex items-center justify-between pt-6 border-t border-border">
-        <div className="text-[10px] text-muted-foreground">© ۱۴۰۳ ارس‌ترید • تمامی حقوق محفوظ است</div>
+        <div className="text-[10px] text-muted-foreground">© ۱۴۰۳ {contact.legalName} ({contact.brand}) • تمامی حقوق محفوظ است</div>
         <FileCheck className="size-4 text-brand-blue" />
       </div>
     </footer>
