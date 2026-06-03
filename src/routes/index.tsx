@@ -701,28 +701,127 @@ function FAQ() {
 
 function FinalCTA() {
   return (
-    <section className="px-6 py-12">
-      <div className="bg-gradient-to-bl from-premium-black via-premium-black to-brand-blue/40 rounded-[40px] p-10 md:p-16 text-primary-foreground text-center relative overflow-hidden">
-        <div className="absolute -top-10 -right-10 size-60 rounded-full bg-brand-gold/20 blur-3xl" />
-        <div className="absolute -bottom-10 -left-10 size-60 rounded-full bg-brand-blue/30 blur-3xl" />
-        <div className="relative">
-          <h2 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-            خودروی رویایی شما،
-            <br />
-            یک تماس فاصله دارد.
-          </h2>
-          <p className="text-white/70 max-w-md mx-auto text-sm mb-8 leading-relaxed">
-            همین حالا با ارس‌ترید تماس بگیرید و مشاوره رایگان واردات یا ترخیص خود را دریافت کنید.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-            <a href="tel:+982188887777" className="h-14 px-6 bg-white text-premium-black rounded-2xl font-bold flex items-center justify-center gap-2 flex-1">
-              <Phone className="size-4" />
-              تماس مستقیم
-            </a>
-            <a href="https://wa.me/989000000000" className="h-14 px-6 bg-emerald-500 text-white rounded-2xl font-bold flex items-center justify-center gap-2 flex-1">
-              <MessageCircle className="size-4" />
-              واتس‌اپ
-            </a>
+    <section className="px-4 sm:px-6 py-16">
+      <div className="relative overflow-hidden rounded-[32px] sm:rounded-[40px] border border-white/10 bg-[oklch(0.16_0.02_265)] shadow-[0_30px_80px_-30px_oklch(0.45_0.18_255/0.45)]">
+        {/* Background layers */}
+        <div className="pointer-events-none absolute inset-0">
+          {/* World map dot pattern */}
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full opacity-[0.09]"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <pattern id="cta-dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="1.2" cy="1.2" r="1.2" fill="oklch(0.75 0.15 250)" />
+              </pattern>
+              <radialGradient id="cta-mask" cx="50%" cy="50%" r="70%">
+                <stop offset="0%" stopColor="white" stopOpacity="1" />
+                <stop offset="100%" stopColor="white" stopOpacity="0" />
+              </radialGradient>
+              <mask id="cta-fade">
+                <rect width="100%" height="100%" fill="url(#cta-mask)" />
+              </mask>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#cta-dots)" mask="url(#cta-fade)" />
+          </svg>
+          {/* Glows */}
+          <div className="absolute -top-24 -left-24 size-80 rounded-full bg-brand-blue/30 blur-3xl" />
+          <div className="absolute -bottom-24 -right-24 size-80 rounded-full bg-brand-blue/20 blur-3xl" />
+          {/* Inner border highlight */}
+          <div className="absolute inset-0 rounded-[32px] sm:rounded-[40px] ring-1 ring-inset ring-white/5" />
+        </div>
+
+        <div className="relative p-8 sm:p-12 lg:p-16">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-12 items-center">
+            {/* Text column */}
+            <div className="text-center lg:text-right">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 mb-6">
+                <span className="size-1.5 rounded-full bg-brand-blue shadow-[0_0_8px_oklch(0.6_0.2_255)]" />
+                <span className="text-[11px] tracking-[0.25em] text-white/70 font-medium">ARAS TRADE</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.35] text-white mb-5">
+                خودروی رویایی شما،
+                <br />
+                یک تماس <span className="text-brand-blue">فاصله</span> دارد.
+              </h2>
+              <p className="text-white/65 text-sm sm:text-base leading-[2] max-w-lg mx-auto lg:mx-0 lg:ml-auto lg:mr-0 mb-8">
+                همین حالا با ارس‌ترید تماس بگیرید و مشاوره رایگان واردات یا ترخیص خود را دریافت کنید.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center">
+                <a
+                  href="https://wa.me/989000000000"
+                  className="h-14 px-7 bg-brand-blue text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-[0_14px_36px_-12px_oklch(0.6_0.2_255/0.7)] hover:brightness-110 transition active:scale-[0.98]"
+                >
+                  <MessageCircle className="size-5" />
+                  واتساپ
+                </a>
+                <a
+                  href="tel:+982188887777"
+                  className="h-14 px-7 bg-white/[0.03] border border-white/15 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/[0.07] transition active:scale-[0.98]"
+                >
+                  <Phone className="size-5" />
+                  تماس مستقیم
+                </a>
+              </div>
+            </div>
+
+            {/* Visual column — decorative neon A */}
+            <div className="hidden lg:flex relative h-[320px] items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="size-[280px] rounded-full bg-brand-blue/15 blur-3xl" />
+              </div>
+              <svg
+                viewBox="0 0 300 300"
+                className="relative h-full w-auto drop-shadow-[0_0_30px_oklch(0.6_0.2_255/0.55)]"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="cta-a-stroke" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="oklch(0.75 0.18 255)" />
+                    <stop offset="100%" stopColor="oklch(0.45 0.18 255)" />
+                  </linearGradient>
+                </defs>
+                {/* Outer A */}
+                <path
+                  d="M150 30 L270 270 L210 270 L150 140 L90 270 L30 270 Z"
+                  fill="none"
+                  stroke="url(#cta-a-stroke)"
+                  strokeWidth="3"
+                  strokeLinejoin="round"
+                />
+                {/* Inner A */}
+                <path
+                  d="M150 90 L222 250 L186 250 L150 168 L114 250 L78 250 Z"
+                  fill="none"
+                  stroke="oklch(0.6 0.2 255)"
+                  strokeOpacity="0.55"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                />
+                <circle cx="150" cy="195" r="3" fill="oklch(0.75 0.18 255)" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Feature strip */}
+          <div className="relative mt-12 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { icon: ShieldCheck, title: "ضمانت اصالت", desc: "۱۰۰٪ تضمینی" },
+              { icon: Globe2, title: "واردات تخصصی", desc: "از اروپا، امارات و چین" },
+              { icon: Gauge, title: "ترخیص سریع", desc: "در کمترین زمان ممکن" },
+            ].map((item) => (
+              <div key={item.title} className="flex items-center gap-3 justify-center sm:justify-start">
+                <div className="size-11 shrink-0 rounded-xl bg-white/[0.04] border border-white/10 grid place-items-center text-brand-blue">
+                  <item.icon className="size-5" />
+                </div>
+                <div className="text-right">
+                  <div className="text-white text-sm font-bold leading-tight">{item.title}</div>
+                  <div className="text-white/55 text-xs mt-1">{item.desc}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
