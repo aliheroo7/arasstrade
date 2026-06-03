@@ -910,15 +910,37 @@ function Footer() {
         <div>
           <div className="font-bold text-sm mb-3">تماس</div>
           <ul className="space-y-2 text-xs text-muted-foreground">
-            <li className="flex items-center gap-2"><Phone className="size-3.5" /> ۰۲۱-۸۸۸۸۷۷۷۷</li>
-            <li className="flex items-center gap-2"><Send className="size-3.5" /> @arastrade</li>
-            <li className="flex items-center gap-2"><Instagram className="size-3.5" /> @arastrade</li>
-            <li className="flex items-start gap-2"><MapPin className="size-3.5 mt-0.5 shrink-0" /> منطقه آزاد ارس، جلفا</li>
+            <li>
+              <a href={`tel:${contact.phone}`} className="flex items-center gap-2 hover:text-foreground">
+                <Phone className="size-3.5" /> <span dir="ltr">{contact.phone}</span>
+              </a>
+            </li>
+            <li>
+              <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <MessageCircle className="size-3.5" /> واتساپ
+              </a>
+            </li>
+            <li>
+              <a href={`https://t.me/${contact.telegram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <Send className="size-3.5" /> @{contact.telegram}
+              </a>
+            </li>
+            <li>
+              <a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-foreground">
+                <Instagram className="size-3.5" /> @{contact.instagram}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${contact.email}`} className="flex items-center gap-2 hover:text-foreground">
+                <FileCheck className="size-3.5" /> <span dir="ltr">{contact.email}</span>
+              </a>
+            </li>
+            <li className="flex items-start gap-2"><MapPin className="size-3.5 mt-0.5 shrink-0" /> {contact.address}</li>
           </ul>
         </div>
       </div>
       <div className="flex items-center justify-between pt-6 border-t border-border">
-        <div className="text-[10px] text-muted-foreground">© ۱۴۰۳ ارس‌ترید • تمامی حقوق محفوظ است</div>
+        <div className="text-[10px] text-muted-foreground">© ۱۴۰۳ {contact.legalName} ({contact.brand}) • تمامی حقوق محفوظ است</div>
         <FileCheck className="size-4 text-brand-blue" />
       </div>
     </footer>
