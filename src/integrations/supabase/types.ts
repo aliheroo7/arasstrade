@@ -55,6 +55,163 @@ export type Database = {
           },
         ]
       }
+      customers: {
+        Row: {
+          admin_notes: string | null
+          company_id: string | null
+          company_name: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          kyc_status: string
+          national_id: string | null
+          phone_verified: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          company_id?: string | null
+          company_name?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          kyc_status?: string
+          national_id?: string | null
+          phone_verified?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          company_id?: string | null
+          company_name?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          kyc_status?: string
+          national_id?: string | null
+          phone_verified?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      epl_profiles: {
+        Row: {
+          created_at: string
+          customer_id: string
+          epl_number: string
+          id: string
+          locked: boolean
+          national_or_company_id: string | null
+          notes: string | null
+          owner_name: string
+          phone: string | null
+          updated_at: string
+          usage_type: string
+          verification_status: string
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          epl_number: string
+          id?: string
+          locked?: boolean
+          national_or_company_id?: string | null
+          notes?: string | null
+          owner_name: string
+          phone?: string | null
+          updated_at?: string
+          usage_type?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          epl_number?: string
+          id?: string
+          locked?: boolean
+          national_or_company_id?: string | null
+          notes?: string | null
+          owner_name?: string
+          phone?: string | null
+          updated_at?: string
+          usage_type?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "epl_profiles_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inquiries: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          customer_id: string | null
+          email: string | null
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          source: string
+          status: string
+          subject: string | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          customer_id?: string | null
+          email?: string | null
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          source?: string
+          status?: string
+          subject?: string | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          customer_id?: string | null
+          email?: string | null
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          source?: string
+          status?: string
+          subject?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       orders: {
         Row: {
           car_model: string
@@ -235,6 +392,7 @@ export type Database = {
     }
     Functions: {
       current_user_permissions: { Args: never; Returns: string[] }
+      customer_id_for: { Args: { _uid: string }; Returns: string }
       has_permission: {
         Args: { _perm: string; _uid: string }
         Returns: boolean
