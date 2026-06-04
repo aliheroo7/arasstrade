@@ -55,6 +55,48 @@ export type Database = {
           },
         ]
       }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_role: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          ip: string | null
+          metadata: Json | null
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_role?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          ip?: string | null
+          metadata?: Json | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          actor_role?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          ip?: string | null
+          metadata?: Json | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       case_messages: {
         Row: {
           body: string
@@ -250,6 +292,85 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      documents: {
+        Row: {
+          bucket: string
+          case_id: string | null
+          category: string
+          created_at: string
+          customer_id: string | null
+          epl_profile_id: string | null
+          file_name: string
+          id: string
+          mime_type: string | null
+          owner_user_id: string
+          size_bytes: number | null
+          storage_path: string
+          updated_at: string
+          uploaded_by: string | null
+          verification_status: string
+          visibility: string
+        }
+        Insert: {
+          bucket: string
+          case_id?: string | null
+          category?: string
+          created_at?: string
+          customer_id?: string | null
+          epl_profile_id?: string | null
+          file_name: string
+          id?: string
+          mime_type?: string | null
+          owner_user_id: string
+          size_bytes?: number | null
+          storage_path: string
+          updated_at?: string
+          uploaded_by?: string | null
+          verification_status?: string
+          visibility?: string
+        }
+        Update: {
+          bucket?: string
+          case_id?: string | null
+          category?: string
+          created_at?: string
+          customer_id?: string | null
+          epl_profile_id?: string | null
+          file_name?: string
+          id?: string
+          mime_type?: string | null
+          owner_user_id?: string
+          size_bytes?: number | null
+          storage_path?: string
+          updated_at?: string
+          uploaded_by?: string | null
+          verification_status?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_epl_profile_id_fkey"
+            columns: ["epl_profile_id"]
+            isOneToOne: false
+            referencedRelation: "epl_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       epl_profiles: {
         Row: {
@@ -545,6 +666,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      audit_write: {
+        Args: {
+          _action: string
+          _entity_id: string
+          _entity_type: string
+          _metadata?: Json
+        }
+        Returns: undefined
+      }
       current_user_permissions: { Args: never; Returns: string[] }
       customer_id_for: { Args: { _uid: string }; Returns: string }
       generate_case_code: { Args: never; Returns: string }
