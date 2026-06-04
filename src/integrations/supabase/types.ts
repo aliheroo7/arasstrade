@@ -55,6 +55,160 @@ export type Database = {
           },
         ]
       }
+      case_messages: {
+        Row: {
+          body: string
+          case_id: string
+          created_at: string
+          id: string
+          is_internal: boolean
+          read_at: string | null
+          sender_id: string | null
+          sender_role: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          case_id: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+          read_at?: string | null
+          sender_id?: string | null
+          sender_role: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          case_id?: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+          read_at?: string | null
+          sender_id?: string | null
+          sender_role?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_messages_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      case_status_history: {
+        Row: {
+          case_id: string
+          changed_by: string | null
+          created_at: string
+          from_status: string | null
+          id: string
+          note: string | null
+          to_status: string
+          updated_at: string
+        }
+        Insert: {
+          case_id: string
+          changed_by?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          note?: string | null
+          to_status: string
+          updated_at?: string
+        }
+        Update: {
+          case_id?: string
+          changed_by?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          note?: string | null
+          to_status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_status_history_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          assigned_to: string | null
+          case_code: string
+          closed_at: string | null
+          created_at: string
+          customer_id: string
+          epl_profile_id: string | null
+          id: string
+          opened_at: string | null
+          priority: string
+          status: string
+          summary: string | null
+          title: string
+          tracking_code: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          case_code: string
+          closed_at?: string | null
+          created_at?: string
+          customer_id: string
+          epl_profile_id?: string | null
+          id?: string
+          opened_at?: string | null
+          priority?: string
+          status?: string
+          summary?: string | null
+          title: string
+          tracking_code: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          case_code?: string
+          closed_at?: string | null
+          created_at?: string
+          customer_id?: string
+          epl_profile_id?: string | null
+          id?: string
+          opened_at?: string | null
+          priority?: string
+          status?: string
+          summary?: string | null
+          title?: string
+          tracking_code?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cases_epl_profile_id_fkey"
+            columns: ["epl_profile_id"]
+            isOneToOne: false
+            referencedRelation: "epl_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       customers: {
         Row: {
           admin_notes: string | null
@@ -393,6 +547,8 @@ export type Database = {
     Functions: {
       current_user_permissions: { Args: never; Returns: string[] }
       customer_id_for: { Args: { _uid: string }; Returns: string }
+      generate_case_code: { Args: never; Returns: string }
+      generate_tracking_code: { Args: never; Returns: string }
       has_permission: {
         Args: { _perm: string; _uid: string }
         Returns: boolean
