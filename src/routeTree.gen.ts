@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedControlRouteRouteImport } from './routes/_authenticated/control/route'
+import { Route as AuthenticatedControlIndexRouteImport } from './routes/_authenticated/control/index'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -40,18 +41,25 @@ const AuthenticatedControlRouteRoute =
     path: '/control',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedControlIndexRoute =
+  AuthenticatedControlIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedControlRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
-  '/control': typeof AuthenticatedControlRouteRoute
+  '/control': typeof AuthenticatedControlRouteRouteWithChildren
+  '/control/': typeof AuthenticatedControlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
-  '/control': typeof AuthenticatedControlRouteRoute
+  '/control': typeof AuthenticatedControlIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,11 +67,12 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
-  '/_authenticated/control': typeof AuthenticatedControlRouteRoute
+  '/_authenticated/control': typeof AuthenticatedControlRouteRouteWithChildren
+  '/_authenticated/control/': typeof AuthenticatedControlIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/control'
+  fullPaths: '/' | '/auth' | '/dashboard' | '/control' | '/control/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/auth' | '/dashboard' | '/control'
   id:
@@ -73,6 +82,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/_authenticated/control'
+    | '/_authenticated/control/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,15 +129,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedControlRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/control/': {
+      id: '/_authenticated/control/'
+      path: '/'
+      fullPath: '/control/'
+      preLoaderRoute: typeof AuthenticatedControlIndexRouteImport
+      parentRoute: typeof AuthenticatedControlRouteRoute
+    }
   }
 }
 
+interface AuthenticatedControlRouteRouteChildren {
+  AuthenticatedControlIndexRoute: typeof AuthenticatedControlIndexRoute
+}
+
+const AuthenticatedControlRouteRouteChildren: AuthenticatedControlRouteRouteChildren =
+  {
+    AuthenticatedControlIndexRoute: AuthenticatedControlIndexRoute,
+  }
+
+const AuthenticatedControlRouteRouteWithChildren =
+  AuthenticatedControlRouteRoute._addFileChildren(
+    AuthenticatedControlRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedControlRouteRoute: typeof AuthenticatedControlRouteRoute
+  AuthenticatedControlRouteRoute: typeof AuthenticatedControlRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedControlRouteRoute: AuthenticatedControlRouteRoute,
+  AuthenticatedControlRouteRoute: AuthenticatedControlRouteRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
