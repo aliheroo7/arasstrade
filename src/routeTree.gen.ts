@@ -15,6 +15,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPortalRouteRouteImport } from './routes/_authenticated/portal/route'
 import { Route as AuthenticatedControlRouteRouteImport } from './routes/_authenticated/control/route'
+import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal/index'
 import { Route as AuthenticatedControlIndexRouteImport } from './routes/_authenticated/control/index'
 
 const DashboardRoute = DashboardRouteImport.update({
@@ -48,6 +49,12 @@ const AuthenticatedControlRouteRoute =
     path: '/control',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPortalIndexRoute =
+  AuthenticatedPortalIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPortalRouteRoute,
+  } as any)
 const AuthenticatedControlIndexRoute =
   AuthenticatedControlIndexRouteImport.update({
     id: '/',
@@ -60,15 +67,16 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/control': typeof AuthenticatedControlRouteRouteWithChildren
-  '/portal': typeof AuthenticatedPortalRouteRoute
+  '/portal': typeof AuthenticatedPortalRouteRouteWithChildren
   '/control/': typeof AuthenticatedControlIndexRoute
+  '/portal/': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
-  '/portal': typeof AuthenticatedPortalRouteRoute
   '/control': typeof AuthenticatedControlIndexRoute
+  '/portal': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,14 +85,22 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/_authenticated/control': typeof AuthenticatedControlRouteRouteWithChildren
-  '/_authenticated/portal': typeof AuthenticatedPortalRouteRoute
+  '/_authenticated/portal': typeof AuthenticatedPortalRouteRouteWithChildren
   '/_authenticated/control/': typeof AuthenticatedControlIndexRoute
+  '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/control' | '/portal' | '/control/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/control'
+    | '/portal'
+    | '/control/'
+    | '/portal/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/portal' | '/control'
+  to: '/' | '/auth' | '/dashboard' | '/control' | '/portal'
   id:
     | '__root__'
     | '/'
@@ -94,6 +110,7 @@ export interface FileRouteTypes {
     | '/_authenticated/control'
     | '/_authenticated/portal'
     | '/_authenticated/control/'
+    | '/_authenticated/portal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -147,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedControlRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/portal/': {
+      id: '/_authenticated/portal/'
+      path: '/'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof AuthenticatedPortalIndexRouteImport
+      parentRoute: typeof AuthenticatedPortalRouteRoute
+    }
     '/_authenticated/control/': {
       id: '/_authenticated/control/'
       path: '/'
@@ -171,14 +195,28 @@ const AuthenticatedControlRouteRouteWithChildren =
     AuthenticatedControlRouteRouteChildren,
   )
 
+interface AuthenticatedPortalRouteRouteChildren {
+  AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
+}
+
+const AuthenticatedPortalRouteRouteChildren: AuthenticatedPortalRouteRouteChildren =
+  {
+    AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
+  }
+
+const AuthenticatedPortalRouteRouteWithChildren =
+  AuthenticatedPortalRouteRoute._addFileChildren(
+    AuthenticatedPortalRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedControlRouteRoute: typeof AuthenticatedControlRouteRouteWithChildren
-  AuthenticatedPortalRouteRoute: typeof AuthenticatedPortalRouteRoute
+  AuthenticatedPortalRouteRoute: typeof AuthenticatedPortalRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedControlRouteRoute: AuthenticatedControlRouteRouteWithChildren,
-  AuthenticatedPortalRouteRoute: AuthenticatedPortalRouteRoute,
+  AuthenticatedPortalRouteRoute: AuthenticatedPortalRouteRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
