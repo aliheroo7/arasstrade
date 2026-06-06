@@ -13,6 +13,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedPortalRouteRouteImport } from './routes/_authenticated/portal/route'
 import { Route as AuthenticatedControlRouteRouteImport } from './routes/_authenticated/control/route'
 import { Route as AuthenticatedControlIndexRouteImport } from './routes/_authenticated/control/index'
 
@@ -35,6 +36,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPortalRouteRoute =
+  AuthenticatedPortalRouteRouteImport.update({
+    id: '/portal',
+    path: '/portal',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedControlRouteRoute =
   AuthenticatedControlRouteRouteImport.update({
     id: '/control',
@@ -53,12 +60,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/control': typeof AuthenticatedControlRouteRouteWithChildren
+  '/portal': typeof AuthenticatedPortalRouteRoute
   '/control/': typeof AuthenticatedControlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/portal': typeof AuthenticatedPortalRouteRoute
   '/control': typeof AuthenticatedControlIndexRoute
 }
 export interface FileRoutesById {
@@ -68,13 +77,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/_authenticated/control': typeof AuthenticatedControlRouteRouteWithChildren
+  '/_authenticated/portal': typeof AuthenticatedPortalRouteRoute
   '/_authenticated/control/': typeof AuthenticatedControlIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/control' | '/control/'
+  fullPaths: '/' | '/auth' | '/dashboard' | '/control' | '/portal' | '/control/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/control'
+  to: '/' | '/auth' | '/dashboard' | '/portal' | '/control'
   id:
     | '__root__'
     | '/'
@@ -82,6 +92,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/_authenticated/control'
+    | '/_authenticated/portal'
     | '/_authenticated/control/'
   fileRoutesById: FileRoutesById
 }
@@ -122,6 +133,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/portal': {
+      id: '/_authenticated/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof AuthenticatedPortalRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/control': {
       id: '/_authenticated/control'
       path: '/control'
@@ -155,10 +173,12 @@ const AuthenticatedControlRouteRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedControlRouteRoute: typeof AuthenticatedControlRouteRouteWithChildren
+  AuthenticatedPortalRouteRoute: typeof AuthenticatedPortalRouteRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedControlRouteRoute: AuthenticatedControlRouteRouteWithChildren,
+  AuthenticatedPortalRouteRoute: AuthenticatedPortalRouteRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
