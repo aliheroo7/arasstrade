@@ -13,6 +13,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ControlLoginRouteImport } from './routes/control.login'
 import { Route as AuthenticatedPortalRouteRouteImport } from './routes/_authenticated/portal/route'
 import { Route as AuthenticatedControlRouteRouteImport } from './routes/_authenticated/control/route'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal/index'
@@ -35,6 +36,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ControlLoginRoute = ControlLoginRouteImport.update({
+  id: '/control/login',
+  path: '/control/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedPortalRouteRoute =
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/control': typeof AuthenticatedControlRouteRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteRouteWithChildren
+  '/control/login': typeof ControlLoginRoute
   '/control/': typeof AuthenticatedControlIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
 }
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/control/login': typeof ControlLoginRoute
   '/control': typeof AuthenticatedControlIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
 }
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/_authenticated/control': typeof AuthenticatedControlRouteRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteRouteWithChildren
+  '/control/login': typeof ControlLoginRoute
   '/_authenticated/control/': typeof AuthenticatedControlIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
 }
@@ -97,10 +106,11 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/control'
     | '/portal'
+    | '/control/login'
     | '/control/'
     | '/portal/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/control' | '/portal'
+  to: '/' | '/auth' | '/dashboard' | '/control/login' | '/control' | '/portal'
   id:
     | '__root__'
     | '/'
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/_authenticated/control'
     | '/_authenticated/portal'
+    | '/control/login'
     | '/_authenticated/control/'
     | '/_authenticated/portal/'
   fileRoutesById: FileRoutesById
@@ -118,6 +129,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
+  ControlLoginRoute: typeof ControlLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,6 +160,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/control/login': {
+      id: '/control/login'
+      path: '/control/login'
+      fullPath: '/control/login'
+      preLoaderRoute: typeof ControlLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/portal': {
@@ -227,6 +246,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
+  ControlLoginRoute: ControlLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
