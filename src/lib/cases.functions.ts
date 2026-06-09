@@ -107,13 +107,18 @@ export const updateCaseStatus = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ context, data }) => {
-    const patch: Record<string, unknown> = { status: data.status };
-    if (data.priority) patch.priority = data.priority;
-    if (data.status === "opened") patch.opened_at = new Date().toISOString();
-    if (data.status === "closed" || data.status === "cancelled")
-      patch.closed_at = new Date().toISOString();
-
-    const { error } = await context.supabase.from("cases").update(patch).eq("id", data.id);
+    const patch = {
+      status: data.status,
+      ...(data.priority ? { priority: data.priority } : {}),
+      ...(data.status === "opened" ? { opened_at: new Date().toISOString() } : {}),
+      ...(data.status === "closed" || data.status === "cancelled"
+        ? { closed_at: new Date().toISOString() }
+        : {}),
+    };
+    const { error } = await context.supabase
+      .from("cases")
+      .update(patch as never)
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -165,7 +170,7 @@ export const createCase = createServerFn({ method: "POST" })
         priority: data.priority,
         status: "opened",
         opened_at: new Date().toISOString(),
-      })
+      } as never)
       .select("id")
       .single();
     if (error) throw new Error(error.message);
