@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getAdminContext } from "@/lib/me.functions";
@@ -19,6 +19,18 @@ function ControlHome() {
           این پنل مدیریت ارس‌ترید است. در فاز بعدی ماژول‌های مشتریان، پرونده‌ها، EPL، اسناد، خودروها و محتوای سایت در این محیط اضافه می‌شوند.
         </p>
       </div>
+
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <Link
+          to="/control/cases"
+          className="bg-surface border border-border rounded-2xl p-5 hover:border-brand-blue transition"
+        >
+          <div className="text-sm font-extrabold mb-1">پرونده‌ها</div>
+          <div className="text-xs text-muted-foreground">
+            مدیریت پرونده‌های ترخیص و واردات، تغییر وضعیت و گفتگو با مشتری
+          </div>
+        </Link>
+      </section>
 
       <section className="bg-surface border border-border rounded-2xl p-6">
         <h2 className="font-bold mb-3 text-sm">دسترسی‌های فعلی شما</h2>
