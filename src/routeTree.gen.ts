@@ -19,6 +19,7 @@ import { Route as AuthenticatedControlRouteRouteImport } from './routes/_authent
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal/index'
 import { Route as AuthenticatedControlIndexRouteImport } from './routes/_authenticated/control/index'
 import { Route as AuthenticatedControlCasesIndexRouteImport } from './routes/_authenticated/control/cases/index'
+import { Route as AuthenticatedControlCasesIdRouteImport } from './routes/_authenticated/control/cases/$id'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -74,6 +75,12 @@ const AuthenticatedControlCasesIndexRoute =
     path: '/cases/',
     getParentRoute: () => AuthenticatedControlRouteRoute,
   } as any)
+const AuthenticatedControlCasesIdRoute =
+  AuthenticatedControlCasesIdRouteImport.update({
+    id: '/cases/$id',
+    path: '/cases/$id',
+    getParentRoute: () => AuthenticatedControlRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -84,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/control/login': typeof ControlLoginRoute
   '/control/': typeof AuthenticatedControlIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
+  '/control/cases/$id': typeof AuthenticatedControlCasesIdRoute
   '/control/cases/': typeof AuthenticatedControlCasesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +101,7 @@ export interface FileRoutesByTo {
   '/control/login': typeof ControlLoginRoute
   '/control': typeof AuthenticatedControlIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
+  '/control/cases/$id': typeof AuthenticatedControlCasesIdRoute
   '/control/cases': typeof AuthenticatedControlCasesIndexRoute
 }
 export interface FileRoutesById {
@@ -106,6 +115,7 @@ export interface FileRoutesById {
   '/control/login': typeof ControlLoginRoute
   '/_authenticated/control/': typeof AuthenticatedControlIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
+  '/_authenticated/control/cases/$id': typeof AuthenticatedControlCasesIdRoute
   '/_authenticated/control/cases/': typeof AuthenticatedControlCasesIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/control/login'
     | '/control/'
     | '/portal/'
+    | '/control/cases/$id'
     | '/control/cases/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/control/login'
     | '/control'
     | '/portal'
+    | '/control/cases/$id'
     | '/control/cases'
   id:
     | '__root__'
@@ -140,6 +152,7 @@ export interface FileRouteTypes {
     | '/control/login'
     | '/_authenticated/control/'
     | '/_authenticated/portal/'
+    | '/_authenticated/control/cases/$id'
     | '/_authenticated/control/cases/'
   fileRoutesById: FileRoutesById
 }
@@ -223,17 +236,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedControlCasesIndexRouteImport
       parentRoute: typeof AuthenticatedControlRouteRoute
     }
+    '/_authenticated/control/cases/$id': {
+      id: '/_authenticated/control/cases/$id'
+      path: '/cases/$id'
+      fullPath: '/control/cases/$id'
+      preLoaderRoute: typeof AuthenticatedControlCasesIdRouteImport
+      parentRoute: typeof AuthenticatedControlRouteRoute
+    }
   }
 }
 
 interface AuthenticatedControlRouteRouteChildren {
   AuthenticatedControlIndexRoute: typeof AuthenticatedControlIndexRoute
+  AuthenticatedControlCasesIdRoute: typeof AuthenticatedControlCasesIdRoute
   AuthenticatedControlCasesIndexRoute: typeof AuthenticatedControlCasesIndexRoute
 }
 
 const AuthenticatedControlRouteRouteChildren: AuthenticatedControlRouteRouteChildren =
   {
     AuthenticatedControlIndexRoute: AuthenticatedControlIndexRoute,
+    AuthenticatedControlCasesIdRoute: AuthenticatedControlCasesIdRoute,
     AuthenticatedControlCasesIndexRoute: AuthenticatedControlCasesIndexRoute,
   }
 
