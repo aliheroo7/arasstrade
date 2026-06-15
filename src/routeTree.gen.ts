@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -22,6 +23,11 @@ import { Route as AuthenticatedControlIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedControlCasesIndexRouteImport } from './routes/_authenticated/control/cases/index'
 import { Route as AuthenticatedControlCasesIdRouteImport } from './routes/_authenticated/control/cases/$id'
 
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/control': typeof AuthenticatedControlRouteRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteRouteWithChildren
   '/control/login': typeof ControlLoginRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/control/login': typeof ControlLoginRoute
   '/control': typeof AuthenticatedControlIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/control': typeof AuthenticatedControlRouteRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteRouteWithChildren
   '/control/login': typeof ControlLoginRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/forgot-password'
+    | '/reset-password'
     | '/control'
     | '/portal'
     | '/control/login'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/forgot-password'
+    | '/reset-password'
     | '/control/login'
     | '/control'
     | '/portal'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/forgot-password'
+    | '/reset-password'
     | '/_authenticated/control'
     | '/_authenticated/portal'
     | '/control/login'
@@ -174,11 +186,19 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ControlLoginRoute: typeof ControlLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forgot-password': {
       id: '/forgot-password'
       path: '/forgot-password'
@@ -317,6 +337,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ControlLoginRoute: ControlLoginRoute,
 }
 export const routeTree = rootRouteImport
