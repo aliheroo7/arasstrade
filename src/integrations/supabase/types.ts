@@ -806,6 +806,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          is_public: boolean
           key: string
           updated_at: string
           updated_by: string | null
@@ -814,6 +815,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          is_public?: boolean
           key: string
           updated_at?: string
           updated_by?: string | null
@@ -822,6 +824,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          is_public?: boolean
           key?: string
           updated_at?: string
           updated_by?: string | null
