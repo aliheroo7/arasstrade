@@ -137,6 +137,11 @@ function LoginForm() {
       <Field label="رمز عبور" error={errs.password}>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
       </Field>
+      <div className="text-left">
+        <Link to="/forgot-password" className="text-xs font-bold text-brand-blue hover:underline">
+          رمز عبور خود را فراموش کرده‌اید؟
+        </Link>
+      </div>
       <button
         type="submit"
         disabled={loading}
