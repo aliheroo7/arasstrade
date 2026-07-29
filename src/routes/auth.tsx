@@ -7,11 +7,10 @@ import { Toaster } from "@/components/ui/sonner";
 import { Loader2, ShieldCheck, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    next: typeof s.next === "string" && s.next.startsWith("/") && !s.next.startsWith("//")
-      ? s.next
-      : undefined,
-  }),
+  validateSearch: (s: Record<string, unknown>): { next?: string } => {
+    const n = s.next;
+    return typeof n === "string" && n.startsWith("/") && !n.startsWith("//") ? { next: n } : {};
+  },
   head: () => ({
     meta: [
       { title: "ورود | ارس‌ترید" },
