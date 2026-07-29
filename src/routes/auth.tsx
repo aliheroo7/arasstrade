@@ -7,6 +7,11 @@ import { Toaster } from "@/components/ui/sonner";
 import { Loader2, ShieldCheck, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" && s.next.startsWith("/") && !s.next.startsWith("//")
+      ? s.next
+      : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "ورود | ارس‌ترید" },
@@ -31,17 +36,22 @@ const loginSchema = z.object({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
   const [mode, setMode] = useState<"login" | "signup">("login");
 
   useEffect(() => {
+    const go = () => {
+      if (next) window.location.replace(next);
+      else navigate({ to: "/dashboard", replace: true });
+    };
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) navigate({ to: "/dashboard", replace: true });
+      if (session) go();
     });
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/dashboard", replace: true });
+      if (data.session) go();
     });
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, next]);
 
   return (
     <div dir="rtl" className="font-sans min-h-screen bg-background text-foreground">
