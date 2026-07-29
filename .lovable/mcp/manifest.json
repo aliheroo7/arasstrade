@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "sdk_version": "0.25.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://tteyfxjenclvbcjitleh.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "arasstrade-mcp",
+      "version": "0.1.0",
+      "title": "ArassTrade"
+    },
+    "tools": [
+      {
+        "name": "list_cases",
+        "title": "List clearance cases",
+        "description": "List import/customs clearance cases visible to the signed-in user, optionally filtered by status or a text search over case code, tracking code and title.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Filter by case status.",
+              "type": "string",
+              "enum": [
+                "draft",
+                "opened",
+                "documents_pending",
+                "in_customs",
+                "cleared",
+                "delivered",
+                "closed",
+                "cancelled"
+              ]
+            },
+            "search": {
+              "description": "Text search.",
+              "type": "string",
+              "maxLength": 120
+            },
+            "limit": {
+              "description": "Max rows (default 25).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_case",
+        "title": "Get case detail",
+        "description": "Fetch one clearance case with its messages, status history and document metadata. Accepts the case id, case code or tracking code.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "Case UUID.",
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "code": {
+              "description": "Case code or tracking code.",
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "post_case_message",
+        "title": "Post a case message",
+        "description": "Add a message to a clearance case thread as the signed-in user.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "case_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Case UUID."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000,
+              "description": "Message text."
+            },
+            "is_internal": {
+              "description": "True for an internal admin-only note. Defaults to false.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "case_id",
+            "body"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_inquiries",
+        "title": "List inquiries",
+        "description": "List consultation/inquiry submissions received from the public site that the signed-in user is allowed to see.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "description": "Max rows (default 25).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
