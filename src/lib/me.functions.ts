@@ -6,9 +6,10 @@ export const getAdminContext = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
 
-    const [profileRes, permsRes, rolesRes, ownerRes] = await Promise.all([
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const [profileRes, rolesRes, ownerRes] = await Promise.all([
       supabase.from("profiles").select("id, full_name, avatar_url, is_active").eq("id", userId).maybeSingle(),
-      supabase.rpc("current_user_permissions"),
       supabase
         .from("admin_role_assignments")
         .select("role:roles(slug,name)")
@@ -17,11 +18,29 @@ export const getAdminContext = createServerFn({ method: "GET" })
       supabase.rpc("is_owner", { _uid: userId }),
     ]);
 
-    const permissions = (permsRes.data as string[] | null) ?? [];
+    const isOwnerFlag = Boolean(ownerRes.data);
+    let permissions: string[] = [];
+    if (isOwnerFlag) {
+      const { data } = await supabaseAdmin.from("permissions").select("slug");
+      permissions = (data ?? []).map((p) => p.slug);
+    } else {
+      const { data } = await supabaseAdmin
+        .from("admin_role_assignments")
+        .select("is_active, role_permissions:roles(role_permissions(permissions(slug)))")
+        .eq("user_id", userId)
+        .eq("is_active", true);
+      const slugs = new Set<string>();
+      for (const row of (data ?? []) as any[]) {
+        for (const rp of row?.role_permissions?.role_permissions ?? []) {
+          if (rp?.permissions?.slug) slugs.add(rp.permissions.slug);
+        }
+      }
+      permissions = [...slugs];
+    }
     const roles = ((rolesRes.data as Array<{ role: { slug: string; name: string } | null }> | null) ?? [])
       .map((r) => r.role)
       .filter((r): r is { slug: string; name: string } => !!r);
-    const isOwner = Boolean(ownerRes.data);
+    const isOwner = isOwnerFlag;
     const isAdmin = isOwner || roles.length > 0;
 
     return {
