@@ -26,7 +26,7 @@ const signupSchema = z.object({
   phone: z.string().trim().regex(/^09\d{9}$/, "شماره موبایل معتبر نیست (مثال: ۰۹۱۲۳۴۵۶۷۸۹)"),
   email: z.string().trim().email("ایمیل معتبر نیست").max(255),
   password: z.string().min(8, "رمز عبور حداقل ۸ کاراکتر باشد").max(72),
-  terms_accepted: z.literal(true, { errorMap: () => ({ message: "پذیرش قوانین الزامی است" }) }),
+  terms_accepted: z.literal(true, { message: "پذیرش قوانین الزامی است" }),
 });
 
 const loginSchema = z.object({
